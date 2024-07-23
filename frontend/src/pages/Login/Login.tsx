@@ -17,8 +17,8 @@ export function Login() {
 
   function showHint() {
     return authenticated ? 
-      <div></div> : 
-      <div><p className="text-sm text-red-600/90 text-center">Invalid user name or password</p></div>
+      null : 
+      <p className="text-sm text-red-600/90 text-center">Invalid user name or password</p>
   }
 
   function submitLogin() {
@@ -28,7 +28,7 @@ export function Login() {
     for (let pair of data.entries()) {
       console.log(pair);
     }
-    client.post("http://127.0.0.1:7001/login", { userName: data.get("userName"), password: data.get("password") }).then(response => {
+    client.post("http://127.0.0.1:7001/user/login", { userName: data.get("userName"), password: data.get("password") }).then(response => {
       const body = response.data;
       console.log(body);
       if (body.authenticated) {
@@ -50,8 +50,8 @@ export function Login() {
           <div className="flex-grow space-y-4">
             User Name: <input type="text" required name="userName" className="ml-2 px-2 ring-2 ring-slate-900/30 rounded-lg shadow-sm" /> <br />
             Password: <input type="password" required name="password" className="ml-2 px-2 ring-2 ring-slate-900/30 rounded-lg shadow-sm" /> <br />
+            {showHint()}
           </div>
-          {showHint()}
           <div className="flex flex-grow justify-center space-x-4">
             <button type="submit" className="bg-sky-600 ring-1 ring-gray-100 rounded-lg px-2 py-1 text-white/90 hover:bg-sky-800 hover:text-white/60">Login</button>
             <button type="button" className="bg-sky-600 ring-1 ring-gray-100 rounded-lg px-2 py-1 text-white/90 hover:bg-sky-800 hover:text-white/60" onClick={redirectToRegister}>Register</button>
