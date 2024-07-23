@@ -8,11 +8,11 @@ export function Login() {
   const client = axios.default;
 
   function redirectToRegister() {
-    navigator('/register')
+    navigator('/register');
   }
 
-  function redirectToWorkspace() {
-    navigator('/workspace')
+  function redirectToWorkspace(uuid: number) {
+    navigator(`/${uuid}/workspace`);
   }
 
   function showHint() {
@@ -32,7 +32,7 @@ export function Login() {
       const body = response.data;
       console.log(body);
       if (body.authenticated) {
-        redirectToWorkspace();
+        redirectToWorkspace(body.uuid);
       }
       else {
         setAuthencicated(false);

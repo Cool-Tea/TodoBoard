@@ -8,7 +8,7 @@ export function ViewBoard({infos} : {infos : CardBoardInfo[]}) {
   )
 
   return (
-    <div className="min-h-full bg-sky-50 m-0 px-8 pt-0 pb-8 flex flex-row text-base divide-fuchsia-900/30">
+    <div className="min-h-full bg-sky-50 m-0 px-8 py-8 flex flex-row text-base items-start">
       {cardBoardItems}
     </div>
   )

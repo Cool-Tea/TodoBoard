@@ -4,7 +4,7 @@ import { Provide } from "@midwayjs/core";
 export class LoginService {
   public async validateUser(info: {userName: string, password: string}) {
     return {
-      authenticated: false,
+      authenticated: true,
       uuid: 123,
       userName: info.userName,
       password: info.password,
