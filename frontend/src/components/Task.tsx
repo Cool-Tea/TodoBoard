@@ -19,7 +19,7 @@ const comments = [
   },
 ];
 
-export function Card({info, index} : {info : CardInfo, index: number}) {
+export function Task({info, index} : {info : CardInfo, index: number}) {
   const [isExpanded, setExpanded] = useState(false);
 
   const memberItems = info.members.map(member => 
@@ -44,20 +44,27 @@ export function Card({info, index} : {info : CardInfo, index: number}) {
   }
 
   return (
-    <li key={index} className="bg-white rounded-lg p-2 shadow-lg flex justify-between">
-      <div className="flex-initial min-w-32 transition ease-in-out">
-        <p className="font-semibold text-slate-900/90">Task: {info.taskName}</p>
-        <p>Period: {info.period}</p>
-        <p>Progress: {info.progress * 100}%/100%</p>
+    <li key={index} className="bg-white rounded-lg p-2 shadow-lg flex flex-col justify-between">
+      <div className="flex flex-row">
+        <div className="flex-initial min-w-32">
+          <p className="font-semibold text-slate-900/90">Task: {info.taskName}</p>
+          <p>Period: {info.period}</p>
+          <p>Progress: {info.progress * 100}%/100%</p>
+        </div>
+        <div className="flex flex-grow justify-end max-w-60 overflow-x-auto">
+          {memberItems}
+        </div>
+      </div>
+      <div>
         <button className="text-sky-600 hover:text-sky-800" onClick={getComments}>Comments</button>
         {isExpanded && 
           <div className="my-2 space-y-2">
             {commentItems}
+            <form className="flex">
+              Comment: <input type="text" className="mx-2 px-2 ring-2 ring-slate-900/30 rounded-lg shadow-sm flex-grow" />
+            </form>
           </div>
         }
-      </div>
-      <div className="flex flex-grow justify-end max-w-60 overflow-x-auto">
-        {memberItems}
       </div>
     </li>
   )

@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigator } from "../../components/Navigator";
 import { ViewBoard } from "../../components/ViewBoard";
-import { CardInfo } from "../../components/Card";
+import { CardInfo } from "../../components/Task";
 import avatar from "../../assets/avatar.png"
-import { CardBoardInfo } from "../../components/CardBoard";
+import { CardBoardInfo } from "../../components/TaskBoard";
 import * as axios from "axios"
 import { useParams } from "react-router";
 

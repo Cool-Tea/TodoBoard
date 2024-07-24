@@ -1,15 +1,15 @@
 import React from "react";
-import { Card, CardInfo } from "./Card";
+import { Task, CardInfo } from "./Task";
 
 export interface CardBoardInfo {
   title: string
   cards: CardInfo[]
 }
 
-export function CardBoard({info} : {info: CardBoardInfo}) {
+export function TaskBoard({info} : {info: CardBoardInfo}) {
 
   const cardItems = info.cards.map((card, index) => 
-    <Card info={card} index={index} />
+    <Task info={card} index={index} />
   )
 
   return (

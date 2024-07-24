@@ -1,10 +1,10 @@
 import React from "react";
-import { CardBoard, CardBoardInfo } from "./CardBoard";
+import { TaskBoard, CardBoardInfo } from "./TaskBoard";
 
 export function ViewBoard({infos} : {infos : CardBoardInfo[]}) {
 
   const cardBoardItems = infos.map(info =>
-    <CardBoard info={info} />
+    <TaskBoard info={info} />
   )
 
   return (

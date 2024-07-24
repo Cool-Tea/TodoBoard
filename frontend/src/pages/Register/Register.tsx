@@ -12,7 +12,7 @@ export function Register() {
   }
 
   function showHint() {
-    return hint ? <p className="text-sm text-red-600/90 text-center">{hint}</p> : null;
+    return hint && <p className="text-sm text-red-600/90 text-center">{hint}</p>;
   }
 
   function submitRegister() {

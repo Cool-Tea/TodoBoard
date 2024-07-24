@@ -1,6 +1,7 @@
-/**
- * @description User-Service parameters
- */
-export interface IUserOptions {
-  uid: number;
+export interface IUserInfo {
+  uuid: number;
+  userName: string;
+  password: string;
+  avatar: string;
+  workspaces: number[];
 }
