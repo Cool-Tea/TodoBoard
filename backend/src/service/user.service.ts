@@ -2,11 +2,30 @@ import { Inject, Provide } from "@midwayjs/core";
 import { UserDB } from "./userdb.service";
 
 @Provide()
-export class RegisterService {
+export class UserService {
   @Inject()
   userdb: UserDB;
 
-  public async isUserNameValid(userName: string): Promise<boolean> {
+  public async validateUser(info: {userName: string, password: string}) {
+    const userInfo = this.userdb.getUserInfoByName(info.userName);
+    console.log(userInfo);
+    if (!userInfo) {
+      return {
+        authenticated: false,
+      };
+    }
+    if (userInfo.password === info.password) {
+      return {
+        authenticated: true,
+        uuid: userInfo.uuid,
+      };
+    }
+    return {
+      authenticated: false,
+    };
+  }
+
+  public async isNewUserNameValid(userName: string): Promise<boolean> {
     return !this.userdb.getUserInfoByName(userName);
   }
 
@@ -15,7 +34,7 @@ export class RegisterService {
   }
 
   public async createUser(info: {userName: string, password: string}) {
-    let valid = await this.isUserNameValid(info.userName) && this.isPasswordValid(info.password);
+    let valid = await this.isNewUserNameValid(info.userName) && this.isPasswordValid(info.password);
     if (!valid) {
       return { validity: valid, reason: 'Invalid user name or password' };
     }

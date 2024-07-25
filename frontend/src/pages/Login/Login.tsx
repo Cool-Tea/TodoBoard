@@ -16,8 +16,7 @@ export function Login() {
   }
 
   function showHint() {
-    return authenticated ? 
-      null : 
+    return !authenticated && 
       <p className="text-sm text-red-600/90 text-center">Invalid user name or password</p>
   }
 
@@ -28,7 +27,7 @@ export function Login() {
     for (let pair of data.entries()) {
       console.log(pair);
     }
-    client.post("http://127.0.0.1:7001/user/login", { userName: data.get("userName"), password: data.get("password") }).then(response => {
+    client.get("http://127.0.0.1:7001/user/login", { params: { userName: data.get("userName"), password: data.get("password") } }).then(response => {
       const body = response.data;
       console.log(body);
       if (body.authenticated) {

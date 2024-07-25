@@ -67,4 +67,17 @@ export class UserDB {
     console.log(this.nameToUuid);
     return newUser.uuid;
   }
+
+  public userQueryWorkspace(uuid: number) {
+    return this.getUserInfoByUuid(uuid).workspaces;
+  }
+
+  public userAddWorkspace(uuid: number, wuid: number) {
+    this.getUserInfoByUuid(uuid).workspaces.push(wuid);
+  }
+  
+  public userDeleteWorkspace(uuid: number, wuid: number) {
+    let ws = this.getUserInfoByUuid(uuid).workspaces;
+    if (ws.indexOf(wuid) >= 0) ws.splice(ws.indexOf(wuid), 1);
+  }
 }
