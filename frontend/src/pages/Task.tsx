@@ -17,6 +17,7 @@ export function Task() {
             <div className="p-2 text-md shadow-inner space-y-2 rounded-md bg-gray-100/80">
               <p>Start Time: 2022-9-1 15:00</p>
               <p>End Time: 2023-9-1 16:00</p>
+              <p>Group: To do</p>
             </div>
           </div>
           <div className="flex-inital bg-white p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
