@@ -87,4 +87,17 @@ export class WorkspaceDB {
     this.nameToWuid.delete(this.workspaceData[wuid].name);
     return true;
   }
+
+  public workspaceGetTasks(wuid: number) {
+    return this.workspaceData[wuid].tasks;
+  }
+
+  public workspaceAddTask(wuid: number, tuid: number) {
+    this.getWorkspaceInfoByWuid(wuid).tasks.push(tuid);
+  }
+
+  public workspaceDeleteTask(wuid: number, tuid: number) {
+    let ts = this.getWorkspaceInfoByWuid(wuid).tasks;
+    if (ts.indexOf(tuid) >= 0) ts.splice(ts.indexOf(tuid), 1);
+  }
 }

@@ -4,6 +4,7 @@ import { Login } from "./pages/Login/Login";
 import { Register } from "./pages/Register/Register";
 import { Repository } from "./pages/Repository/Repository";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { TaskPage } from "./pages/Task/TaskPage";
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/register" Component={Register} />
           <Route path="/:uuid/workspace" Component={Repository} />
           <Route path="/:uuid/workspace/:wuid" Component={Workspace} />
+          <Route path="/:uuid/task/:tuid" Component={TaskPage} />
           <Route path="*" element={<Navigate replace to="/login" />} />
         </Routes>
       </BrowserRouter>

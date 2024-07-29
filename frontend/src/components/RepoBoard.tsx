@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import * as axios from "axios"
-
-function ToolBarButton({title, onClick}: {title: string, onClick: ()=>void}) {
-  
-  return (
-    <div>
-      <button className="bg-sky-600 text-white p-2 rounded-lg shadow-sm hover:bg-sky-800 hover:text-white/80" onClick={onClick}>
-        {title}
-      </button>
-    </div>
-  )
-}
+import { ToolBarButton } from "./ToolBarButton";
+import { ToolBar } from "./ToolBar";
 
 function WSButton({title, isDel, onClick}: {title: string, isDel: boolean, onClick: ()=>void}) {
 
@@ -92,7 +83,7 @@ export function RepoBoard({uuid} : {uuid: number}) {
   }
 
   return (
-    <div className="relative flex flex-col space-y-2 flex-grow px-8 pb-8 pt-2 m-0 bg-sky-50 text-base">
+    <div className="relative flex flex-col space-y-4 flex-grow px-8 pb-8 pt-4 m-0 bg-sky-50 text-base">
       {mode == Mode.CREATE && 
         <div className="absolute inset-0 backdrop-blur-sm backdrop-brightness-50 flex items-center justify-center">
           <div className="flex flex-col space-y-6 bg-white px-6 pt-10 pb-8 shadow-xl rounded-lg ring-1 ring-gray-900/5">
@@ -114,10 +105,10 @@ export function RepoBoard({uuid} : {uuid: number}) {
           </div>
         </div>
       }
-      <div className="flex felx-row space-x-4 bg-white rounded-md px-4 py-2 ring-1 ring-gray-900/5 shadow-sm">
+      <ToolBar>
         <ToolBarButton title="Create Workspace" onClick={()=>setMode(Mode.CREATE)} />
         <ToolBarButton title="Delete Workspace" onClick={ToggleDelete} />
-      </div>
+      </ToolBar>
       <div className="flex-grow shadow-inner ring-1 ring-slate-900/5 p-4 bg-sky-100/80 rounded-lg min-h-full grid grid-cols-4 gap-4 items-start">
       {
         infos.map((info, index) => 

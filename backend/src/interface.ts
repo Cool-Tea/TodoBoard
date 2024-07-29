@@ -12,3 +12,23 @@ export interface IWorkspaceInfo {
   tasks: number[];
   members: number[];
 }
+
+interface IComment {
+  uuid: number;
+  content: string;
+}
+
+export enum TaskStatus {
+  TODO, DOING, DONE
+}
+
+export interface ITaskInfo {
+  wuid: number;
+  tuid: number;
+  name: string;
+  startTime: Date;
+  endTime: Date;
+  status: TaskStatus;
+  members: number[];
+  comments: IComment[];
+}
