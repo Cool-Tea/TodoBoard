@@ -2,8 +2,10 @@ import React from "react";
 import { SideBar, SideBarStatus } from "../components/SideBar";
 import addIcon from "../assets/add.png"
 import fileIcon from "../assets/file.png"
+import { useParams } from "react-router";
 
 export function Task() {
+  const { user } = useParams();
 
   return (
     <div className="relative bg-sky-50 min-h-screen flex">
@@ -15,6 +17,7 @@ export function Task() {
               Info
             </div>
             <div className="p-2 text-md shadow-inner space-y-2 rounded-md bg-gray-100/80">
+              <p>Name: Sleep</p>
               <p>Start Time: 2022-9-1 15:00</p>
               <p>End Time: 2023-9-1 16:00</p>
               <p>Group: To do</p>

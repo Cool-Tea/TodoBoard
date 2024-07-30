@@ -1,10 +1,10 @@
 import React from "react";
 import { SideBar, SideBarStatus } from "../components/SideBar";
-import addIcon from "../assets/add.png"
-import deleteIcon from "../assets/delete.png"
 import { Group } from "../components/Group";
+import { useParams } from "react-router";
 
 export function Project() {
+  const { user } = useParams();
   
   return (
     <div className="relative bg-sky-50 min-h-screen flex">

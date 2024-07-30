@@ -1,7 +1,9 @@
 import React from "react";
 import reactIcon from "../assets/react.svg"
+import { useNavigate } from "react-router";
 
 export function Register() {
+  const navigate = useNavigate();
 
   return (
     <div className="relative bg-sky-50 min-h-screen flex justify-center items-center">
@@ -14,7 +16,7 @@ export function Register() {
           New User Name: <input type="text" className="px-2 rounded-lg ring-1 ring-gray-900/50" /> <br />
           Set Password: <input type="text" className="px-2 rounded-lg ring-1 ring-gray-900/50"/> <br />
           <div className="flex justify-between">
-            <button type="button" className="text-sky-600 hover:text-sky-800">Back</button>
+            <button type="button" onClick={()=>navigate('/login')} className="text-sky-600 hover:text-sky-800">Back</button>
             <button type="button" className="text-white px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-800">Register</button>
           </div>
         </form>

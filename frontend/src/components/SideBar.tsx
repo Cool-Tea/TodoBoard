@@ -4,10 +4,11 @@ import repoIcon from "../assets/Repo.png"
 import addIcon from "../assets/add.png"
 import deleteIcon from "../assets/delete.png"
 import logoutIcon from "../assets/logout.png"
+import { useNavigate, useParams } from "react-router";
 
-function Button({icon, title}) {
+function Button({icon, title, onClick}) {
   return (
-    <button className="p-2 rounded-lg flex flex-col items-center hover:bg-gray-200">
+    <button onClick={onClick} className="p-2 rounded-lg flex flex-col items-center hover:bg-gray-200">
       <img src={icon} className="w-8 h-8" />
       <p className="text-sm">{title}</p>
     </button>
@@ -19,6 +20,8 @@ export enum SideBarStatus {
 }
 
 export function SideBar({status} : {status : SideBarStatus}) {
+  const navigate = useNavigate();
+  const { user } = useParams();
 
   function getTaskButtons() {
     return null;
@@ -27,8 +30,8 @@ export function SideBar({status} : {status : SideBarStatus}) {
   function getProjectButtons() {
     return (
       <>
-        <Button icon={addIcon} title="Add Group" />
-        <Button icon={deleteIcon} title="Delete Group" />
+        <Button icon={addIcon} title="Add Group" onClick={()=>{}} />
+        <Button icon={deleteIcon} title="Delete Group" onClick={()=>{}}/>
       </>
     )
   }
@@ -36,8 +39,8 @@ export function SideBar({status} : {status : SideBarStatus}) {
   function getRepoButtons() {
     return (
       <>
-        <Button icon={addIcon} title="Add Project" />
-        <Button icon={deleteIcon} title="Delete Project" />
+        <Button icon={addIcon} title="Add Project" onClick={()=>{}}/>
+        <Button icon={deleteIcon} title="Delete Project" onClick={()=>{}}/>
       </>
     )
   }
@@ -59,12 +62,12 @@ export function SideBar({status} : {status : SideBarStatus}) {
     <div className="absolute inset-0 z-50 bg-white py-4 px-2 w-24 text-center items-center ring-1 ring-gray-900/5 shadow-xl flex flex-col space-y-8">
       <img src={reactIcon} className="w-12 h-12" />
       <div className="p-2 ring-1 ring-gray-900/5 shadow-lg text-center text-white rounded-md bg-gray-900/60">
-        Tim
+        {user}
       </div>
       <div className="flex flex-col space-y-4">
-        <Button icon={repoIcon} title="Repository" />
+        <Button icon={repoIcon} title="Repository" onClick={()=>navigate(`/${user}/repository`)}/>
         {getButtons()}
-        <Button icon={logoutIcon} title="Logout" />
+        <Button icon={logoutIcon} title="Logout" onClick={()=>navigate('/login')}/>
       </div>
     </div>
   )

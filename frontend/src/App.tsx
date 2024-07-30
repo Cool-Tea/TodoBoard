@@ -13,9 +13,9 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" />
-          <Route path="/task" Component={Task} /> 
-          <Route path="/project" Component={Project} /> 
-          <Route path="/repository" Component={Repository} /> 
+          <Route path="/:user/task/:task" Component={Task} /> 
+          <Route path="/:user/project/:project" Component={Project} /> 
+          <Route path="/:user/repository" Component={Repository} /> 
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
         </Routes>
