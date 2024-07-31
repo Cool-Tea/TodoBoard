@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 
 export function TaskCard() {
   const navigate = useNavigate();
-  const { user } = useParams();
+  const { user, project } = useParams();
 
   return (
     <div className="bg-white p-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg text-left flex justify-between">
@@ -18,7 +18,7 @@ export function TaskCard() {
       <div className="flex flex-col justify-center items-center">
         <button className="p-1 rounded-full hover:bg-gray-200"><img src={backIcon} className="h-6 w-6"/></button>
         <button className="p-1 rounded-full hover:bg-gray-200"><img src={nextIcon} className="h-6 w-6"/></button>
-        <button onClick={()=>navigate(`/${user}/task/task`)} className="p-1 rounded-full hover:bg-gray-200"><img src={moreIcon} className="h-6 w-6"/></button>
+        <button onClick={()=>navigate(`/${user}/project/${project}/task`)} className="p-1 rounded-full hover:bg-gray-200"><img src={moreIcon} className="h-6 w-6"/></button>
       </div>
     </div>
   )

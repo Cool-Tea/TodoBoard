@@ -4,6 +4,7 @@ import repoIcon from "../assets/Repo.png"
 import addIcon from "../assets/add.png"
 import deleteIcon from "../assets/delete.png"
 import logoutIcon from "../assets/logout.png"
+import backIcon from "../assets/back.png"
 import { useNavigate, useParams } from "react-router";
 
 function Button({icon, title, onClick}) {
@@ -21,10 +22,14 @@ export enum SideBarStatus {
 
 export function SideBar({status} : {status : SideBarStatus}) {
   const navigate = useNavigate();
-  const { user } = useParams();
+  const { user, project, task } = useParams();
 
   function getTaskButtons() {
-    return null;
+    return (
+      <>
+        <Button icon={backIcon} title="Back" onClick={()=>navigate(`/${user}/project/${project}`)} />
+      </>
+    )
   }
 
   function getProjectButtons() {
@@ -32,6 +37,7 @@ export function SideBar({status} : {status : SideBarStatus}) {
       <>
         <Button icon={addIcon} title="Add Group" onClick={()=>{}} />
         <Button icon={deleteIcon} title="Delete Group" onClick={()=>{}}/>
+        <Button icon={backIcon} title="Back" onClick={()=>navigate(`/${user}/repository`)} />
       </>
     )
   }

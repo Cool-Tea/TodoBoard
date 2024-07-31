@@ -25,7 +25,7 @@ export function Task() {
           </div>
           <div className="flex-inital bg-white p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
             <div className="flex flex-row justify-between items-center text-xl text-gray-900/90">
-              <p>Appendix</p>
+              <p>Attachment</p>
               <button className="p-1 rounded-full hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
             </div>
             <div className="p-2 text-md shadow-inner rounded-md bg-gray-100/80">
