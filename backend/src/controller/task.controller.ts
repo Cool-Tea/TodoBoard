@@ -1,6 +1,7 @@
 import { Body, Controller, Del, Get, Inject, Post, Query } from "@midwayjs/core";
 import { Rule, RuleType } from "@midwayjs/validate";
 import { ProjectService } from "../service/project.service";
+import { ITask } from "../interface";
 
 class CreateBody {
   @Rule(RuleType.string().required())
@@ -25,13 +26,30 @@ export class TaskController {
   @Inject()
   projectService: ProjectService;
 
+  private dateToString(date: Date) {
+    return date.toString().substring(0, 16).replace('T', ' ');
+  }
+
+  private processReturnTask(task: ITask) {
+    let ret = {
+      name: task.name,
+      startTime: this.dateToString(task.startTime),
+      endTime: this.dateToString(task.endTime),
+      group: this.projectService.getGroup(task.groupId),
+      comments: task.comments,
+      attachments: task.attachments,
+    }
+    return ret;
+  }
+
   @Get('/query')
   async query(@Query('project') project: string, @Query('task') task: string) {
     if (!this.projectService.open(project)) return { success: false, reason: 'Project didn\'t exists' };
     let taskInfo = this.projectService.getTask(task);
     if (!taskInfo) return { success: false, reason: 'Task didn\'t exists' };
+    let ret = this.processReturnTask(taskInfo);
     this.projectService.close();
-    return { success: true, data: taskInfo };
+    return { success: true, data: ret };
   }
 
   @Post('/create')

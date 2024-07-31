@@ -8,7 +8,7 @@ export class ProjectService {
   private project: IProject = null;
 
   constructor() {
-    let data = fs.readFileSync('../database/project.json', 'utf-8');
+    let data = fs.readFileSync('src/database/project.json', 'utf-8');
     this.projectList = JSON.parse(data);
     console.log(this.projectList);
   }
@@ -17,24 +17,26 @@ export class ProjectService {
   async destroy() {
     this.close();
     let data = JSON.stringify(this.projectList);
-    fs.writeFileSync('../database/project.json', data, 'utf-8');
+    fs.writeFileSync('src/database/project.json', data, 'utf-8');
   }
 
   public open(name: string) {
     if (!this.projectList.includes(name)) {
       return false;
     }
-    let data = fs.readFileSync(`../database/projects/${name}.json`, 'utf-8');
+    let data = fs.readFileSync(`src/database/projects/${name}.json`, 'utf-8');
     this.project = JSON.parse(data);
+    console.log(`==== Openning ${name} ====`)
     console.log(this.project);
     return true;
   }
 
   public close() {
     if (!this.project) return;
+    console.log(`==== Closing ${this.project.name} ====`)
     console.log(this.project);
     let data = JSON.stringify(this.project);
-    fs.writeFileSync(`../database/projects/${this.project.name}.json`, data, 'utf-8');
+    fs.writeFileSync(`src/database/projects/${this.project.name}.json`, data, 'utf-8');
     this.project = null;
   }
 
@@ -107,8 +109,8 @@ export class ProjectService {
     console.log(newProject);
     this.projectList.push(name);
     let data = JSON.stringify(newProject);
-    fs.writeFileSync(`../database/projects/${name}.json`, data, 'utf-8');
-    fs.mkdirSync(`../database/projects/${name}`);
+    fs.writeFileSync(`src/database/projects/${name}.json`, data, 'utf-8');
+    fs.mkdirSync(`src/database/projects/${name}`);
     return true;
   }
 }

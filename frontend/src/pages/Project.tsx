@@ -4,7 +4,7 @@ import { Group } from "../components/Group";
 import { useParams } from "react-router";
 
 export function Project() {
-  const { user } = useParams();
+  const { user, project } = useParams();
   
   return (
     <div className="relative bg-sky-50 min-h-screen flex">
