@@ -1,4 +1,4 @@
-import { Body, Controller, Del, Get, Inject, Post, Query } from "@midwayjs/core";
+import { Body, Controller, Del, Get, Inject, Patch, Post, Query } from "@midwayjs/core";
 import { Rule, RuleType } from "@midwayjs/validate";
 import { ProjectService } from "../service/project.service";
 import { ITask } from "../interface";
@@ -44,9 +44,9 @@ export class TaskController {
 
   @Get('/query')
   async query(@Query('project') project: string, @Query('task') task: string) {
-    if (!this.projectService.open(project)) return { success: false, reason: 'Project didn\'t exists' };
+    if (!this.projectService.open(project)) return { success: false, reason: 'Project doesn\'t exists' };
     let taskInfo = this.projectService.getTask(task);
-    if (!taskInfo) return { success: false, reason: 'Task didn\'t exists' };
+    if (!taskInfo) return { success: false, reason: 'Task doesn\'t exists' };
     let ret = this.processReturnTask(taskInfo);
     this.projectService.close();
     return { success: true, data: ret };
@@ -54,7 +54,7 @@ export class TaskController {
 
   @Post('/create')
   async create(@Body() body: CreateBody) {
-    if (!this.projectService.open(body.project)) return { success: false, reason: 'Project didn\'t exists' };
+    if (!this.projectService.open(body.project)) return { success: false, reason: 'Project doesn\'t exists' };
     if (!this.projectService.addTask(body.name, body.startTime, body.endTime, body.groupId)) {
       this.projectService.close();
       return { success: false, reason: 'Task name duplicated' };
@@ -64,11 +64,22 @@ export class TaskController {
   }
 
   @Del('/delete')
-  async deleteTask(@Body() body) {
-    if (!this.projectService.open(body.project)) return { success: false, reason: 'Project didn\'t exists' };
-    if (!this.projectService.deleteTask(body.task)) {
+  async deleteTask(@Query('project') project: string, @Query('task') task: string) {
+    if (!this.projectService.open(project)) return { success: false, reason: 'Project doesn\'t exists' };
+    if (!this.projectService.deleteTask(task)) {
       this.projectService.close();
-      return { success: false, reason: 'Task didn\'t exists' };
+      return { success: false, reason: 'Task doesn\'t exists' };
+    }
+    this.projectService.close();
+    return { success: true, data: null };
+  }
+
+  @Patch('/move')
+  async move(@Body() body) {
+    if (!this.projectService.open(body.project)) return { success: false, reason: 'Project doesn\'t exists' };
+    if (!this.projectService.moveTask(body.task, body.distance)) {
+      this.projectService.close();
+      return { success: false, reason: 'Task doesn\'t exists' };
     }
     this.projectService.close();
     return { success: true, data: null };
@@ -86,10 +97,10 @@ export class TaskController {
 
   @Post('/comment')
   async comment(@Body() body) {
-    if (!this.projectService.open(body.project)) return { success: false, reason: 'Project didn\'t exists' };
+    if (!this.projectService.open(body.project)) return { success: false, reason: 'Project doesn\'t exists' };
     if (!this.projectService.commentTask(body.task, body.user, body.content)) {
       this.projectService.close();
-      return { success: false, reason: 'Task didn\'t exists' };
+      return { success: false, reason: 'Task doesn\'t exists' };
     }
     this.projectService.close();
     return { success: true, data: null };

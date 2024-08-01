@@ -626,24 +626,8 @@ video {
   width: 2rem;
 }
 
-.max-w-10 {
-  max-width: 2.5rem;
-}
-
-.max-w-16 {
-  max-width: 4rem;
-}
-
-.max-w-8 {
-  max-width: 2rem;
-}
-
 .max-w-24 {
   max-width: 6rem;
-}
-
-.max-w-36 {
-  max-width: 9rem;
 }
 
 .flex-1 {
@@ -658,12 +642,12 @@ video {
   flex-grow: 1;
 }
 
-.grid-cols-5 {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .flex-row {

@@ -99,6 +99,23 @@ export class ProjectService {
     return true;
   }
 
+  public deleteGroup(name: string) {
+    if (!this.project.groups.includes(name)) return false;
+    let id = this.project.groups.indexOf(name);
+    let toBeDelete = [];
+    this.project.tasks.forEach((task, index) => {
+      if (task.groupId == id) toBeDelete.push(index);
+      else if (task.groupId > id) task.groupId--;
+    });
+    this.project.groups.splice(id, 1);
+    this.project.tasks = this.project.tasks.filter((task, index) => !toBeDelete.includes(index));
+    return true;
+  }
+
+  public getProject(name: string) {
+    return this.project;
+  }
+
   public addProject(name: string) {
     if (this.projectList.includes(name)) return false;
     let newProject: IProject = {
@@ -111,6 +128,16 @@ export class ProjectService {
     let data = JSON.stringify(newProject);
     fs.writeFileSync(`src/database/projects/${name}.json`, data, 'utf-8');
     fs.mkdirSync(`src/database/projects/${name}`);
+    return true;
+  }
+
+  public deleteProject(name: string) {
+    this.close();
+    if (!this.projectList.includes(name)) return false;
+    let id = this.projectList.indexOf(name);
+    this.projectList.splice(id, 1);
+    fs.rmSync(`src/database/projects/${name}.json`);
+    fs.rmSync(`src/database/projects/${name}`, { recursive: true, force: true });
     return true;
   }
 }
