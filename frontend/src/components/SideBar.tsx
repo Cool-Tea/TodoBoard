@@ -6,6 +6,7 @@ import deleteIcon from "../assets/delete.png"
 import logoutIcon from "../assets/logout.png"
 import backIcon from "../assets/back.png"
 import { useNavigate, useParams } from "react-router";
+import { ProjectMode } from "../pages/Project";
 
 function Button({icon, title, onClick}) {
   return (
@@ -20,7 +21,13 @@ export enum SideBarStatus {
   REPO, PROJECT, TASK
 }
 
-export function SideBar({status} : {status : SideBarStatus}) {
+interface Props {
+  status: SideBarStatus;
+  mode?: ProjectMode;
+  setMode?: React.Dispatch<React.SetStateAction<ProjectMode>>;
+}
+
+export function SideBar({status, mode, setMode} : Props) {
   const navigate = useNavigate();
   const { user, project, task } = useParams();
 
@@ -35,8 +42,11 @@ export function SideBar({status} : {status : SideBarStatus}) {
   function getProjectButtons() {
     return (
       <>
-        <Button icon={addIcon} title="Add Group" onClick={()=>{}} />
-        <Button icon={deleteIcon} title="Delete Group" onClick={()=>{}}/>
+        <Button icon={addIcon} title="Add Group" onClick={()=>{setMode!(ProjectMode.AGROUP)}} />
+        <Button icon={deleteIcon} title="Delete Group" onClick={()=>{
+          if (mode == ProjectMode.DGROUP) setMode!(ProjectMode.NORMAL);
+          else setMode!(ProjectMode.DGROUP);
+        }}/>
         <Button icon={backIcon} title="Back" onClick={()=>navigate(`/${user}/repository`)} />
       </>
     )

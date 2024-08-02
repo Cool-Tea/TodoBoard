@@ -13,7 +13,7 @@ export class ProjectController {
     let groups = [];
     for (let i = 0; i < n; i++) {
       let group = {
-        id: i,
+        name: this.projectService.getGroup(i),
         tasks: info.tasks.filter(task => task.groupId == i),
       }
       groups.push(group);
