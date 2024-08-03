@@ -74,8 +74,19 @@ export class ProjectService {
     return true;
   }
 
-  public attachTask(name: string) {
-    //TODO: add attachment
+  public attachTask(name: string, filepath: string, filename: string) {
+    let task = this.getTask(name);
+    if (!task) return false;
+    task.attachments.push(filename);
+    fs.copyFileSync(filepath, `src/database/projects/${this.project.name}/${filename}`);
+    return true;
+  }
+
+  public downloadAttachment(name: string, filename: string) {
+    let task = this.getTask(name);
+    if (!task || !task.attachments.includes(filename)) return null;
+    let stream = fs.createReadStream(`src/database/projects/${this.project.name}/${filename}`);
+    return stream;
   }
 
   public commentTask(name: string, user: string, content: string) {

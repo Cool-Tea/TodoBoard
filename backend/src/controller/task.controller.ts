@@ -1,4 +1,4 @@
-import { Body, Controller, Del, Get, Inject, Patch, Post, Query } from "@midwayjs/core";
+import { Body, Controller, Del, Fields, Files, Get, Inject, Patch, Post, Query } from "@midwayjs/core";
 import { Rule, RuleType } from "@midwayjs/validate";
 import { ProjectService } from "../service/project.service";
 import { ITask } from "../interface";
@@ -86,13 +86,25 @@ export class TaskController {
   }
 
   @Post('/upload')
-  async upload(@Body() body) {
-    //TODO: upload attachments
+  async upload(@Files() files, @Fields() fields) {
+    if (!this.projectService.open(fields.project)) return { success: false, reason: 'Project doesn\'t exists' };
+    for (let file of files) {
+      if (!this.projectService.attachTask(fields.task, file.data, file.filename)) {
+        this.projectService.close();
+        return { success: false, reason: 'Task doesn\'t exists' };
+      }
+    }
+    this.projectService.close();
+    return { success: true, data: null };
   }
 
-  @Post('/download')
-  async download(@Body() body) {
-    //TODO: download attachments
+  @Get('/download')
+  async download(@Query('project') project: string, @Query('task') task: string, @Query('file') file: string) {
+    if (!this.projectService.open(project)) return { success: false, reason: 'Project doesn\'t exists' };
+    let ret = this.projectService.downloadAttachment(task, file);
+    if (!ret) return { success: false, reason: 'Task or attachment doesn\'t exists' };
+    this.projectService.close();
+    return ret;
   }
 
   @Post('/comment')
