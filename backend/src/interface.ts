@@ -20,5 +20,6 @@ export interface IProject {
 
 export interface IUser {
   name: string;
-  projects: IProject[];
+  password: string;
+  projects: string[];
 }
