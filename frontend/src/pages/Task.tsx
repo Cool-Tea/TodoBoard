@@ -9,6 +9,7 @@ export function Task() {
   const { user, project, task } = useParams();
   const [ taskInfo, setInfo ] = useState<any>(null);
   const client = axios.default;
+  const [showUpload, setUpload] = useState(false);
 
   function getTaskInfo() {
     client.get('http://127.0.0.1:7001/task/query', { params: { project: project, task: task } }).then(res => {
@@ -24,6 +25,42 @@ export function Task() {
   }
 
   useEffect(getTaskInfo, []);
+
+  function attachTask() {
+    const file = document.getElementById('file') as HTMLInputElement;
+    if (!file.files || !file.files[0]) return;
+    let data = new FormData();
+    data.set('file', file.files[0]);
+    data.set('project', project!);
+    data.set('task', task!);
+    client.post("http://127.0.0.1:7001/task/upload", data).then(res => {
+      let body = res.data;
+      if (!body.success) {
+        console.log(`Error: ${body.reason}`);
+      }
+      else {
+        getTaskInfo();
+      }
+    }).catch(err => console.log(`Error: ${err}`));
+  }
+
+  function downloadAttachment(name: string) {
+    client.get("http://127.0.0.1:7001/task/download", { params: { project: project, task: task, file: name }, responseType: 'blob' }).then(res => {
+      let { data, headers } = res;
+      console.log(headers);
+      let filename: string = headers['content-disposition'].replace(/attachment; filename=(.*)/, '$1');
+      let blob = new Blob([data], {type: headers['Content-Type']?.toString()});
+      let dom = document.createElement('a')
+      let url = window.URL.createObjectURL(blob)
+      dom.href = url
+      dom.download = decodeURI(filename)
+      dom.style.display = 'none'
+      document.body.appendChild(dom)
+      dom.click()
+      dom.parentNode!.removeChild(dom)
+      window.URL.revokeObjectURL(url)
+    }).catch(err => console.log(`Error: ${err}`));
+  }
 
   function commentTask() {
     const comment = document.getElementById('comment') as HTMLInputElement;
@@ -65,22 +102,25 @@ export function Task() {
           <div className="flex-inital bg-white p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
             <div className="flex flex-row justify-between items-center text-xl text-gray-900/90">
               <p>Attachment</p>
-              <button className="p-1 rounded-full hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
+              <button onClick={()=>setUpload(!showUpload)} className="p-1 rounded-full hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
             </div>
             <div className="p-2 text-md shadow-inner rounded-md bg-gray-100/80 grid grid-cols-4">
-              <button className="p-2 rounded-lg flex flex-col items-center hover:bg-white">
-                <img src={fileIcon} className="h-6 w-6" />
-                <p className="max-w-24 truncate">attachment</p>
-              </button>
               {
                 taskInfo && taskInfo.attachments.map((attachment, index) => 
-                  <button key={index} className="p-2 rounded-lg flex flex-col items-center hover:bg-white">
+                  <button key={index} onClick={()=>downloadAttachment(attachment)} className="p-2 rounded-lg flex flex-col items-center hover:bg-white">
                     <img src={fileIcon} className="h-6 w-6" />
                     <p className="max-w-24 truncate">{attachment}</p>
                   </button>
                 )
               }
             </div>
+            {
+              showUpload &&
+              <div className="flex justify-between">
+                <input type="file" id="file" />
+                <button onClick={attachTask} className="text-white px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-800">Add</button>
+              </div>
+            }
           </div>
         </div>
         <div className="w-2/3 flex flex-col">

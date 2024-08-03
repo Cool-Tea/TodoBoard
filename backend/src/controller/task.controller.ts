@@ -2,6 +2,7 @@ import { Body, Controller, Del, Fields, Files, Get, Inject, Patch, Post, Query }
 import { Rule, RuleType } from "@midwayjs/validate";
 import { ProjectService } from "../service/project.service";
 import { ITask } from "../interface";
+import { Context } from "@midwayjs/koa";
 
 class CreateBody {
   @Rule(RuleType.string().required())
@@ -25,6 +26,9 @@ export class TaskController {
 
   @Inject()
   projectService: ProjectService;
+
+  @Inject()
+  ctx: Context;
 
   private dateToString(date: Date) {
     return date.toString().substring(0, 16).replace('T', ' ');
@@ -88,6 +92,8 @@ export class TaskController {
   @Post('/upload')
   async upload(@Files() files, @Fields() fields) {
     if (!this.projectService.open(fields.project)) return { success: false, reason: 'Project doesn\'t exists' };
+    console.log(`==== Uploading ${fields.task} ====`);
+    console.log(files);
     for (let file of files) {
       if (!this.projectService.attachTask(fields.task, file.data, file.filename)) {
         this.projectService.close();
@@ -100,11 +106,23 @@ export class TaskController {
 
   @Get('/download')
   async download(@Query('project') project: string, @Query('task') task: string, @Query('file') file: string) {
-    if (!this.projectService.open(project)) return { success: false, reason: 'Project doesn\'t exists' };
+    console.log(`==== Downloading ${file} ====`);
+    this.ctx.set('Content-Type', 'appliaction/octet-stream');
+    this.ctx.set('Content-Disposition', `attachment; filename=${file}`);
+    if (!this.projectService.open(project)) {
+      this.ctx.status = 404;
+      this.ctx.body = 'Project doesn\'t exists';
+      return;
+    }
     let ret = this.projectService.downloadAttachment(task, file);
-    if (!ret) return { success: false, reason: 'Task or attachment doesn\'t exists' };
+    if (!ret) {
+      this.projectService.close();
+      this.ctx.status = 404;
+      this.ctx.body = 'Task doesn\'t exists';
+      return;
+    }
     this.projectService.close();
-    return ret;
+    this.ctx.body = ret;
   }
 
   @Post('/comment')
