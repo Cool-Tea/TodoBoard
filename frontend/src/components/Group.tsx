@@ -4,6 +4,8 @@ import deleteIcon from "../assets/delete.png";
 import crossIcon from "../assets/cross.png";
 import { TaskCard } from "./TaskCard";
 import { ProjectMode } from "../pages/Project";
+import { useParams } from "react-router";
+import * as axios from "axios"
 
 interface IGroup {
   name: string;
@@ -15,13 +17,26 @@ interface Props {
   group: IGroup;
   mode: ProjectMode;
   setMode: React.Dispatch<React.SetStateAction<ProjectMode>>;
-  deleteGroup: ()=>void;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
   setGroup: React.Dispatch<React.SetStateAction<number>>;
-  deleteTask: (task: string)=>void;
 }
 
-export function Group({index, group, mode, setMode, deleteGroup, setGroup, deleteTask}: Props) {
+export function Group({index, group, mode, setMode, setRefresh, setGroup}: Props) {
+  const { user, project } = useParams();
+  const client = axios.default;
   const [isDel, setDel] = useState(false);
+
+  function deleteGroup() {
+    client.delete("http://127.0.0.1:7001/project/group/delete", { params: { project: project, group: group.name } }).then(res => {
+      let body = res.data;
+      if (!body.success) {
+        console.log(`Error: ${body.reason}`);
+      }
+      else {
+        setRefresh(true);
+      }
+    }).catch(err => console.log(`Error: ${err}`));
+  }
 
   return (
     <div className="relative flex-grow p-4 bg-white rounded-lg ring-1 ring-gray-900/5 shadow-lg">
@@ -39,7 +54,7 @@ export function Group({index, group, mode, setMode, deleteGroup, setGroup, delet
       <div className="mt-2 p-4 flex flex-col space-y-4 items-stretch shadow-inner rounded-lg bg-gray-900/60">
         {
           group.tasks.map((task, index) => 
-            <TaskCard key={index} task={task} isDel={isDel} deleteTask={deleteTask} />
+            <TaskCard key={index} task={task} isDel={isDel} setRefresh={setRefresh} />
           )
         }
       </div>

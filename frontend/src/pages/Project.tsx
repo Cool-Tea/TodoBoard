@@ -11,6 +11,7 @@ export enum ProjectMode {
 
 export function Project() {
   const { user, project } = useParams();
+  const [refresh, setRefresh] = useState(false);
   const [projectInfo, setInfo] = useState<any>(null);
   const [mode, setMode] = useState<ProjectMode>(ProjectMode.NORMAL);
   const [reason, setReason] = useState<string | null>(null);
@@ -27,10 +28,10 @@ export function Project() {
         setInfo(body.data);
         console.log(body.data);
       }
-    }).catch(err => console.log(`Error: ${err}`));
+    }).catch(err => console.log(`Error: ${err}`)).finally(()=>setRefresh(false));
   }
 
-  useEffect(getProjectInfo, []);
+  useEffect(getProjectInfo, [refresh]);
 
   function isInBlurMode() {
     return mode == ProjectMode.AGROUP || mode == ProjectMode.ATask;
@@ -112,24 +113,13 @@ export function Project() {
         setReason(body.reason);
       }
       else {
-        getProjectInfo();
+        setRefresh(true);
         setMode(ProjectMode.NORMAL);
         setReason(null);
       }
     }).catch(err => console.log(`Error: ${err}`));
   }
 
-  function deleteTask(task: string) {
-    client.delete("http://127.0.0.1:7001/task/delete", { params: { project: project, task: task } }).then(res => {
-      let body = res.data;
-      if (!body.success) {
-        console.log(`Error: ${body.reason}`);
-      }
-      else {
-        getProjectInfo();
-      }
-    }).catch(err => console.log(`Error: ${err}`));
-  }
 
   function addGroup() {
     const group = document.getElementById('group') as HTMLInputElement;
@@ -142,22 +132,10 @@ export function Project() {
         setReason(body.reason);
       }
       else {
-        getProjectInfo();
+        setRefresh(true);
         setMode(ProjectMode.NORMAL);
         group.value = '';
         setReason(null);
-      }
-    }).catch(err => console.log(`Error: ${err}`));
-  }
-
-  function deleteGroup(group: string) {
-    client.delete("http://127.0.0.1:7001/project/group/delete", { params: { project: project, group: group } }).then(res => {
-      let body = res.data;
-      if (!body.success) {
-        console.log(`Error: ${body.reason}`);
-      }
-      else {
-        getProjectInfo();
       }
     }).catch(err => console.log(`Error: ${err}`));
   }
@@ -177,7 +155,7 @@ export function Project() {
         {
           projectInfo &&
           projectInfo.groups.map((group, index) => 
-            <Group key={index} index={index} group={group} mode={mode} setMode={setMode} deleteGroup={()=>deleteGroup(group.name)} setGroup={setGroup} deleteTask={deleteTask} />
+            <Group key={index} index={index} group={group} mode={mode} setMode={setMode} setRefresh={setRefresh} setGroup={setGroup} />
           )
         }
       </div>
