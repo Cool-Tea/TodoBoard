@@ -27,4 +27,13 @@ export class UserController {
     if (!this.userService.addUser(body.name, body.password)) return { success: false, reason: 'User name has been used' };
     return { success: true, data: null };
   }
+
+  @Post('/project/add')
+  async addProject(@Body() body) {
+    let user = this.userService.getUser(body.user);
+    if (!user) return { success: false, reason: 'User doesn\'t exists' };
+    if (user.password.includes(body.project)) return { success: false, reason: 'User already has this project' };
+    user.projects.push(body.project);
+    return { success: true, data: null };
+  }
 }

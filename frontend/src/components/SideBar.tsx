@@ -7,6 +7,7 @@ import logoutIcon from "../assets/logout.png"
 import backIcon from "../assets/back.png"
 import { useNavigate, useParams } from "react-router";
 import { ProjectMode } from "../pages/Project";
+import { RepoMode } from "../pages/Repository";
 
 function Button({icon, title, onClick}) {
   return (
@@ -23,11 +24,13 @@ export enum SideBarStatus {
 
 interface Props {
   status: SideBarStatus;
-  mode?: ProjectMode;
-  setMode?: React.Dispatch<React.SetStateAction<ProjectMode>>;
+  projectMode?: ProjectMode;
+  setProjectMode?: React.Dispatch<React.SetStateAction<ProjectMode>>;
+  repoMode?: RepoMode;
+  setRepoMode?: React.Dispatch<React.SetStateAction<RepoMode>>;
 }
 
-export function SideBar({status, mode, setMode} : Props) {
+export function SideBar({status, projectMode, setProjectMode, repoMode, setRepoMode} : Props) {
   const navigate = useNavigate();
   const { user, project, task } = useParams();
 
@@ -42,10 +45,10 @@ export function SideBar({status, mode, setMode} : Props) {
   function getProjectButtons() {
     return (
       <>
-        <Button icon={addIcon} title="Add Group" onClick={()=>{setMode!(ProjectMode.AGROUP)}} />
+        <Button icon={addIcon} title="Add Group" onClick={()=>{setProjectMode!(ProjectMode.AGROUP)}} />
         <Button icon={deleteIcon} title="Delete Group" onClick={()=>{
-          if (mode == ProjectMode.DGROUP) setMode!(ProjectMode.NORMAL);
-          else setMode!(ProjectMode.DGROUP);
+          if (projectMode == ProjectMode.DGROUP) setProjectMode!(ProjectMode.NORMAL);
+          else setProjectMode!(ProjectMode.DGROUP);
         }}/>
         <Button icon={backIcon} title="Back" onClick={()=>navigate(`/${user}/repository`)} />
       </>
@@ -55,8 +58,11 @@ export function SideBar({status, mode, setMode} : Props) {
   function getRepoButtons() {
     return (
       <>
-        <Button icon={addIcon} title="Add Project" onClick={()=>{}}/>
-        <Button icon={deleteIcon} title="Delete Project" onClick={()=>{}}/>
+        <Button icon={addIcon} title="Add Project" onClick={()=>{setRepoMode!(RepoMode.APROJECT)}}/>
+        <Button icon={deleteIcon} title="Delete Project" onClick={()=>{
+          if (repoMode == RepoMode.DPROJECT) setRepoMode!(RepoMode.NORMAL);
+          else setRepoMode!(RepoMode.DPROJECT);
+        }}/>
       </>
     )
   }

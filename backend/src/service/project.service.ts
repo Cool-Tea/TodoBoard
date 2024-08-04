@@ -13,11 +13,15 @@ export class ProjectService {
     console.log(this.projectList);
   }
 
+  private saveList() {
+    let data = JSON.stringify(this.projectList);
+    fs.writeFileSync('src/database/project.json', data, 'utf-8');
+  }
+
   @Destroy()
   async destroy() {
     this.close();
-    let data = JSON.stringify(this.projectList);
-    fs.writeFileSync('src/database/project.json', data, 'utf-8');
+    this.saveList();
   }
 
   public open(name: string) {
@@ -127,6 +131,10 @@ export class ProjectService {
     return this.project;
   }
 
+  public getProjectList() {
+    return this.projectList;
+  }
+
   public addProject(name: string) {
     if (this.projectList.includes(name)) return false;
     let newProject: IProject = {
@@ -136,6 +144,7 @@ export class ProjectService {
     };
     console.log(newProject);
     this.projectList.push(name);
+    this.saveList();
     let data = JSON.stringify(newProject);
     fs.writeFileSync(`src/database/projects/${name}.json`, data, 'utf-8');
     fs.mkdirSync(`src/database/projects/${name}`);
@@ -147,6 +156,7 @@ export class ProjectService {
     if (!this.projectList.includes(name)) return false;
     let id = this.projectList.indexOf(name);
     this.projectList.splice(id, 1);
+    this.saveList();
     fs.rmSync(`src/database/projects/${name}.json`);
     fs.rmSync(`src/database/projects/${name}`, { recursive: true, force: true });
     return true;

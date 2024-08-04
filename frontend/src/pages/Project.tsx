@@ -45,7 +45,10 @@ export function Project() {
           <p className="font-serif text-2xl font-bold">Add Group</p>
         </div>
         <div className="text-lg px-2 space-y-2">
-          Group Name: <input type="text" id="group" required className="px-2 rounded-lg ring-1 ring-gray-900/50" />
+          <div className="flex space-x-2">
+            <p>Group Name:</p>
+            <input type="text" id="group" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+          </div>
           {
             reason && 
             <div className="text-red-600 text-sm">
@@ -69,9 +72,18 @@ export function Project() {
           <p className="font-serif text-2xl font-bold">Add Task</p>
         </div>
         <form id="task" className="text-lg px-2 space-y-2" >
-          Task Name: <input type="text" required name="name" className="px-2 rounded-lg ring-1 ring-gray-900/50" /> <br />
-          Start Time: <input type="datetime-local" required name="startTime" className="px-2 rounded-lg ring-1 ring-gray-900/50" /> <br />
-          End Time: <input type="datetime-local" required name="endTime" className="px-2 rounded-lg ring-1 ring-gray-900/50" /> <br />
+          <div className="flex space-x-2">
+            <p>Task Name:</p>
+            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+          </div>
+          <div className="flex space-x-2">
+            <p>Start Time:</p>
+            <input type="datetime-local" required name="startTime" className="px-2 rounded-lg ring-1 ring-gray-900/50" />
+          </div>
+          <div className="flex space-x-2">
+            <p>End Time:</p>
+            <input type="datetime-local" required name="endTime" className="px-2 rounded-lg ring-1 ring-gray-900/50" />
+          </div>
           {
             reason && 
             <div className="text-red-600 text-sm">
@@ -142,7 +154,7 @@ export function Project() {
 
   return (
     <div className="relative bg-sky-50 min-h-screen flex">
-      <SideBar status={SideBarStatus.PROJECT} mode={mode} setMode={setMode} />
+      <SideBar status={SideBarStatus.PROJECT} projectMode={mode} setProjectMode={setMode} />
       {
         isInBlurMode() && 
         <div className="absolute inset-0 ml-24 z-40 backdrop-blur-lg backdrop-brightness-50 flex items-center justify-center">

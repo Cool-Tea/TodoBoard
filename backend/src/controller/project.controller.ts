@@ -34,6 +34,11 @@ export class ProjectController {
     return { success: true, data: ret };
   }
 
+  @Get('/overview')
+  async overview() {
+    return { success: true, data: this.projectService.getProjectList() };
+  }
+
   @Post('/create')
   async create(@Body() body) {
     if (!this.projectService.addProject(body.name)) return { success: false, reason: 'Project name duplicated'};

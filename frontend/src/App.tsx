@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Task } from "./pages/Task";
 import { Project } from "./pages/Project";
 import { Repository } from "./pages/Repository";
@@ -12,12 +12,12 @@ export default function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" />
           <Route path="/:user/project/:project" Component={Project} /> 
           <Route path="/:user/project/:project/:task" Component={Task} /> 
           <Route path="/:user/repository" Component={Repository} /> 
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
+          <Route path="*" element={<Navigate replace to="/login" />} />
         </Routes>
       </BrowserRouter>
     </div>
