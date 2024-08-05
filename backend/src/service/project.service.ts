@@ -64,7 +64,6 @@ export class ProjectService {
       comments: [],
     };
     this.project.tasks.push(newTask);
-    this.projectList.push(name);
     return true;
   }
 
@@ -182,7 +181,7 @@ export class ProjectService {
     let id = this.projectList.indexOf(name);
     this.projectList.splice(id, 1);
     console.log(`==== Deleting ${name}.json ====`)
-    fs.rmSync(`database/projects/${name}.json`);
+    fs.unlinkSync(`database/projects/${name}.json`);
     console.log(`==== Deleting ${name} directory ====`)
     fs.rmSync(`database/projects/${name}`, { recursive: true });
     return true;
