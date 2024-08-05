@@ -180,9 +180,8 @@ export class ProjectService {
     }
     let id = this.projectList.indexOf(name);
     this.projectList.splice(id, 1);
-    console.log(`==== Deleting ${name}.json ====`)
+    this.close();
     fs.unlinkSync(`database/projects/${name}.json`);
-    console.log(`==== Deleting ${name} directory ====`)
     fs.rmSync(`database/projects/${name}`, { recursive: true });
     return true;
   }
