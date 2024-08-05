@@ -4,16 +4,9 @@ import addIcon from "../assets/add.png"
 import deleteIcon from "../assets/delete.png"
 import reactIcon from "../assets/react.svg"
 import tickIcon from "../assets/tick.png"
+import crossIcon from "../assets/cross.png"
 import { useNavigate, useParams } from "react-router";
 import * as axios from "axios"
-
-function Button({title, onClick}: {title: string, onClick: ()=>void}) {
-  return (
-    <button onClick={onClick} className="bg-white hover:bg-gray-200 p-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
-      {title}
-    </button>
-  )
-}
 
 export enum RepoMode {
   NORMAL, APROJECT, DPROJECT
@@ -78,6 +71,22 @@ export function Repository() {
     )
   }
 
+  function getProjectItems() {
+    let isDel = mode == RepoMode.DPROJECT;
+    return (
+      projects.map((project, index) => 
+        isDel ? 
+        <div key={index} className="relative bg-white text-center content-center p-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
+          <button onClick={()=>deleteProject(project)} className="absolute top-0 right-0 rounded-full hover:bg-gray-200"><img src={crossIcon} className="h-4 w-4 rounded-full" /></button>
+          <p>{project}</p>
+        </div> :
+        <button key={index} onClick={()=>navigate(`/${user}/project/${project}`)} className="bg-white hover:bg-gray-200 p-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
+          {project}
+        </button>
+      )
+    )
+  }
+
   function addProject(project: string) {
     let data = {
       user: user,
@@ -97,7 +106,7 @@ export function Repository() {
   function createProject() {
     const project = document.getElementById('project') as HTMLInputElement;
     if (project.value.length == 0) return;
-    let data = { name: project.value };
+    let data = { user: user, name: project.value };
     client.post("http://127.0.0.1:7001/project/create", data).then(res => {
       let body = res.data;
       if (!body.success) {
@@ -108,6 +117,30 @@ export function Repository() {
         addProject(data.name);
       }
     }).catch(err => console.log(`Error: ${err}`));
+  }
+
+  function removeProject(project: string) {
+    client.delete("http://127.0.0.1:7001/user/project/delete", { params: { user: user, project: project } }).then(res => {
+      let body = res.data;
+      if (!body.success) {
+        console.log(`Error: ${body.reason}`);
+      }
+      else {
+        refresh();
+      }
+    }).catch(err => `Error: ${err}`);
+  }
+
+  function deleteProject(project: string) {
+    client.delete("http://127.0.0.1:7001/project/delete", { params: { user: user, project: project } }).then(res => {
+      let body = res.data;
+      if (!body.success) {
+        console.log(`Error: ${body.reason}`);
+      }
+      else {
+        removeProject(project);
+      }
+    }).catch(err => `Error: ${err}`);
   }
 
   return (
@@ -167,9 +200,7 @@ export function Repository() {
           <div className="mt-2 p-4 flex-grow grid grid-cols-5 gap-4 shadow-inner rounded-lg bg-gray-900/60">
             {
               projects &&
-              projects.map((project, index) => 
-                <Button key={index} title={project} onClick={()=>navigate(`/${user}/project/${project}`)} />
-              )
+              getProjectItems()
             }
           </div>
         </div>

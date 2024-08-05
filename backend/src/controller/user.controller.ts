@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post, Query } from "@midwayjs/core";
+import { Body, Controller, Del, Get, Inject, Post, Query } from "@midwayjs/core";
 import { UserService } from "../service/user.service";
 
 @Controller('/user')
@@ -34,6 +34,16 @@ export class UserController {
     if (!user) return { success: false, reason: 'User doesn\'t exists' };
     if (user.password.includes(body.project)) return { success: false, reason: 'User already has this project' };
     user.projects.push(body.project);
+    return { success: true, data: null };
+  }
+
+  @Del('/project/delete')
+  async deleteProject(@Query('user') user: string, @Query('project') project: string) {
+    let userInfo = this.userService.getUser(user);
+    if (!userInfo) return { success: false, reason: 'User doesn\'t exists' };
+    if (!userInfo.projects.includes(project)) return { success: false, reason: 'User doesn\'t has this project' };
+    let id = userInfo.projects.indexOf(project);
+    userInfo.projects.splice(id, 1);
     return { success: true, data: null };
   }
 }

@@ -79,12 +79,12 @@ export function Task() {
   }
 
   return (
-    <div className="relative bg-sky-50 min-h-screen flex">
+    <div className="relative bg-gradient-to-r from-indigo-300 via-sky-300 to-emerald-300 min-h-screen flex">
       <SideBar status={SideBarStatus.TASK} />
       <div className="ml-24 px-8 pt-4 pb-8 flex-grow flex space-x-4">
         <div className="w-1/3 flex flex-col space-y-4">
           <div className="flex-initial bg-white p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
-            <div className="text-xl text-gray-900/90">
+            <div className="text-xl font-bold font-serif text-gray-900/90">
               Info
             </div>
             <div className="p-2 text-md shadow-inner space-y-2 rounded-md bg-gray-100/80">
@@ -101,7 +101,7 @@ export function Task() {
           </div>
           <div className="flex-inital bg-white p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
             <div className="flex flex-row justify-between items-center text-xl text-gray-900/90">
-              <p>Attachment</p>
+              <p className="font-bold font-serif">Attachment</p>
               <button onClick={()=>setUpload(!showUpload)} className="p-1 rounded-full hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
             </div>
             <div className="p-2 text-md shadow-inner rounded-md bg-gray-100/80 grid grid-cols-4">
@@ -125,7 +125,7 @@ export function Task() {
         </div>
         <div className="w-2/3 flex flex-col">
           <div className="flex-1 flex flex-col bg-white p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
-            <div className="text-xl text-gray-900/90">
+            <div className="text-xl font-bold font-serif text-gray-900/90">
               Comment
             </div>
             <div className="flex-grow p-2 text-md shadow-inner space-y-2 rounded-md bg-gray-100/80">

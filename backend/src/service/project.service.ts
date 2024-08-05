@@ -135,9 +135,10 @@ export class ProjectService {
     return this.projectList;
   }
 
-  public addProject(name: string) {
+  public addProject(user: string, name: string) {
     if (this.projectList.includes(name)) return false;
     let newProject: IProject = {
+      owner: user,
       name: name,
       groups: [],
       tasks: [],
@@ -151,9 +152,15 @@ export class ProjectService {
     return true;
   }
 
-  public deleteProject(name: string) {
+  public deleteProject(user: string, name: string) {
     this.close();
     if (!this.projectList.includes(name)) return false;
+    if (!this.open(name)) return false;
+    if (this.project.owner != user) {
+      this.close();
+      return true;
+    }
+    this.close();
     let id = this.projectList.indexOf(name);
     this.projectList.splice(id, 1);
     this.saveList();

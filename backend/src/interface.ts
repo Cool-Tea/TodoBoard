@@ -13,6 +13,7 @@ export interface ITask {
 }
 
 export interface IProject {
+  owner: string;
   name: string;
   groups: string[];
   tasks: ITask[];

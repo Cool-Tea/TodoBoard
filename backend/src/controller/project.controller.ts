@@ -19,6 +19,7 @@ export class ProjectController {
       groups.push(group);
     }
     let ret = {
+      owner: info.owner,
       name: info.name,
       groups: groups,
     };
@@ -41,13 +42,13 @@ export class ProjectController {
 
   @Post('/create')
   async create(@Body() body) {
-    if (!this.projectService.addProject(body.name)) return { success: false, reason: 'Project name duplicated'};
+    if (!this.projectService.addProject(body.user, body.name)) return { success: false, reason: 'Project name duplicated'};
     return { success: true, data: null };
   }
 
   @Del('/delete')
-  async deleteProject(@Query('project') project: string) {
-    if (!this.projectService.deleteProject(project)) return { success: false, reason: 'Project doesn\'t exists'};
+  async deleteProject(@Query('user') user: string, @Query('project') project: string) {
+    if (!this.projectService.deleteProject(user, project)) return { success: false, reason: 'Project doesn\'t exists'};
     return { success: true, data: null };
   }
 
