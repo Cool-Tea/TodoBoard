@@ -30,20 +30,15 @@ export class UserController {
 
   @Post('/project/add')
   async addProject(@Body() body) {
-    let user = this.userService.getUser(body.user);
-    if (!user) return { success: false, reason: 'User doesn\'t exists' };
-    if (user.password.includes(body.project)) return { success: false, reason: 'User already has this project' };
-    user.projects.push(body.project);
+    if (!this.userService.getUser(body.user)) return { success: false, reason: 'User doesn\'t exists' };
+    if (!this.userService.addProject(body.user, body.project)) return { success: false, reason: 'User already has this project' };
     return { success: true, data: null };
   }
 
   @Del('/project/delete')
   async deleteProject(@Query('user') user: string, @Query('project') project: string) {
-    let userInfo = this.userService.getUser(user);
-    if (!userInfo) return { success: false, reason: 'User doesn\'t exists' };
-    if (!userInfo.projects.includes(project)) return { success: false, reason: 'User doesn\'t has this project' };
-    let id = userInfo.projects.indexOf(project);
-    userInfo.projects.splice(id, 1);
+    if (!this.userService.getUser(user)) return { success: false, reason: 'User doesn\'t exists' };
+    if (!this.userService.deleteProject(user, project)) return { success: false, reason: 'User doesn\'t has this project' };
     return { success: true, data: null };
   }
 }

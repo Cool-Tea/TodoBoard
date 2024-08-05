@@ -48,7 +48,12 @@ export class ProjectController {
 
   @Del('/delete')
   async deleteProject(@Query('user') user: string, @Query('project') project: string) {
-    if (!this.projectService.deleteProject(user, project)) return { success: false, reason: 'Project doesn\'t exists'};
+    if (!this.projectService.open(project)) return { success: false, reason: 'Project doesn\'t exists'};
+    if (!this.projectService.deleteProject(user, project)) {
+      this.projectService.close();
+      return { success: false, reason: ''};
+    }
+    this.projectService.close();
     return { success: true, data: null };
   }
 

@@ -14,6 +14,7 @@ export interface ITask {
 
 export interface IProject {
   owner: string;
+  members: string[];
   name: string;
   groups: string[];
   tasks: ITask[];

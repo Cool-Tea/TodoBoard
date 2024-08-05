@@ -1,22 +1,30 @@
-import { Destroy, Provide, Scope, ScopeEnum } from "@midwayjs/core";
+import { Destroy, Inject, Provide, Scope, ScopeEnum } from "@midwayjs/core";
 import * as fs from "fs"
 import { IUser } from "../interface";
+import { ProjectService } from "./project.service";
 
 @Provide()
 @Scope(ScopeEnum.Singleton)
 export class UserService {
   private userList: IUser[] = null;
 
+  @Inject()
+  projectService: ProjectService;
+
   constructor() {
-    let data = fs.readFileSync('src/database/user.json', 'utf-8');
+    let data = fs.readFileSync('database/user.json', 'utf-8');
     this.userList = JSON.parse(data);
     console.log(this.userList);
   }
 
+  public saveList() {
+    let data = JSON.stringify(this.userList);
+    fs.writeFileSync('database/user.json', data, 'utf-8');
+  }
+
   @Destroy()
   async destroy() {
-    let data = JSON.stringify(this.userList);
-    fs.writeFileSync('src/database/user.json', data, 'utf-8');
+    this.saveList();
   }
 
   public getUser(name: string) {
@@ -31,6 +39,24 @@ export class UserService {
       projects: [],
     };
     this.userList.push(newUser);
+    return true;
+  }
+
+  public addProject(user: string, project: string) {
+    let userInfo = this.getUser(user);
+    if (userInfo.projects.includes(project)) return false;
+    userInfo.projects.push(project);
+    if (!this.projectService.open(project)) return false;
+    this.projectService.addMember(user);
+    this.projectService.close();
+    return true;
+  }
+
+  public deleteProject(user: string, project: string) {
+    let userInfo = this.getUser(user);
+    let id = userInfo.projects.indexOf(project);
+    if (id < 0) return false;
+    userInfo.projects.splice(id, 1);
     return true;
   }
 }

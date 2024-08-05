@@ -1,21 +1,26 @@
-import { Destroy, Provide } from "@midwayjs/core";
+import { Destroy, Inject, Provide, Scope, ScopeEnum } from "@midwayjs/core";
 import { IProject, ITask } from "../interface";
 import * as fs from "fs"
+import { UserService } from "./user.service";
 
 @Provide()
+@Scope(ScopeEnum.Singleton)
 export class ProjectService {
   private projectList: string[] = null;
   private project: IProject = null;
 
+  @Inject()
+  userService: UserService;
+
   constructor() {
-    let data = fs.readFileSync('src/database/project.json', 'utf-8');
+    let data = fs.readFileSync('database/project.json', 'utf-8');
     this.projectList = JSON.parse(data);
     console.log(this.projectList);
   }
 
   private saveList() {
     let data = JSON.stringify(this.projectList);
-    fs.writeFileSync('src/database/project.json', data, 'utf-8');
+    fs.writeFileSync('database/project.json', data, 'utf-8');
   }
 
   @Destroy()
@@ -28,7 +33,7 @@ export class ProjectService {
     if (!this.projectList.includes(name)) {
       return false;
     }
-    let data = fs.readFileSync(`src/database/projects/${name}.json`, 'utf-8');
+    let data = fs.readFileSync(`database/projects/${name}.json`, 'utf-8');
     this.project = JSON.parse(data);
     console.log(`==== Openning ${name} ====`)
     console.log(this.project);
@@ -40,7 +45,7 @@ export class ProjectService {
     console.log(`==== Closing ${this.project.name} ====`)
     console.log(this.project);
     let data = JSON.stringify(this.project);
-    fs.writeFileSync(`src/database/projects/${this.project.name}.json`, data, 'utf-8');
+    fs.writeFileSync(`database/projects/${this.project.name}.json`, data, 'utf-8');
     this.project = null;
   }
 
@@ -82,14 +87,14 @@ export class ProjectService {
     let task = this.getTask(name);
     if (!task) return false;
     task.attachments.push(filename);
-    fs.copyFileSync(filepath, `src/database/projects/${this.project.name}/${filename}`);
+    fs.copyFileSync(filepath, `database/projects/${this.project.name}/${filename}`);
     return true;
   }
 
   public downloadAttachment(name: string, filename: string) {
     let task = this.getTask(name);
     if (!task || !task.attachments.includes(filename)) return null;
-    let stream = fs.createReadStream(`src/database/projects/${this.project.name}/${filename}`);
+    let stream = fs.createReadStream(`database/projects/${this.project.name}/${filename}`);
     return stream;
   }
 
@@ -127,6 +132,19 @@ export class ProjectService {
     return true;
   }
 
+  public addMember(user: string) {
+    if (this.project.members.includes(user)) return false;
+    this.project.members.push(user);
+    return true;
+  }
+
+  public deleteMember(user: string) {
+    let id = this.project.members.indexOf(user);
+    if (id < 0) return false;
+    this.project.members.splice(id, 1);
+    return true;
+  }
+
   public getProject(name: string) {
     return this.project;
   }
@@ -139,33 +157,34 @@ export class ProjectService {
     if (this.projectList.includes(name)) return false;
     let newProject: IProject = {
       owner: user,
+      members: [],
       name: name,
       groups: [],
       tasks: [],
     };
+    console.log(`==== Adding new project ====`);
     console.log(newProject);
     this.projectList.push(name);
-    this.saveList();
     let data = JSON.stringify(newProject);
-    fs.writeFileSync(`src/database/projects/${name}.json`, data, 'utf-8');
-    fs.mkdirSync(`src/database/projects/${name}`);
+    fs.writeFileSync(`database/projects/${name}.json`, data, 'utf-8');
+    fs.mkdirSync(`database/projects/${name}`);
     return true;
   }
 
   public deleteProject(user: string, name: string) {
-    this.close();
-    if (!this.projectList.includes(name)) return false;
-    if (!this.open(name)) return false;
-    if (this.project.owner != user) {
-      this.close();
-      return true;
+    console.log(`==== Deleting ${name} ====`)
+    console.log(this.project);
+    if (this.project.owner != user) return true;
+    for (let member of this.project.members) {
+      if (member != this.project.owner)
+        this.userService.deleteProject(member, this.project.name);
     }
-    this.close();
     let id = this.projectList.indexOf(name);
     this.projectList.splice(id, 1);
-    this.saveList();
-    fs.rmSync(`src/database/projects/${name}.json`);
-    fs.rmSync(`src/database/projects/${name}`, { recursive: true, force: true });
+    console.log(`==== Deleting ${name}.json ====`)
+    fs.rmSync(`database/projects/${name}.json`);
+    console.log(`==== Deleting ${name} directory ====`)
+    fs.rmSync(`database/projects/${name}`, { recursive: true });
     return true;
   }
 }
