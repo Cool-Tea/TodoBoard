@@ -78,11 +78,11 @@ export function Project() {
           </div>
           <div className="flex space-x-2">
             <p>Start Time:</p>
-            <input type="datetime-local" required name="startTime" className="px-2 rounded-lg ring-1 ring-gray-900/50" />
+            <input type="datetime-local" required name="startTime" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
           </div>
           <div className="flex space-x-2">
             <p>End Time:</p>
-            <input type="datetime-local" required name="endTime" className="px-2 rounded-lg ring-1 ring-gray-900/50" />
+            <input type="datetime-local" required name="endTime" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
           </div>
           {
             reason && 
@@ -114,9 +114,13 @@ export function Project() {
     let data = {
       project: project,
       name: formData.get("name"),
-      startTime: formData.get("startTime"),
-      endTime: formData.get("endTime"),
+      startTime: formData.get("startTime") as string,
+      endTime: formData.get("endTime") as string,
       groupId: group,
+    }
+    if (new Date(data.startTime) > new Date(data.endTime)) {
+      setReason('End time cannot precede start time');
+      return;
     }
     client.post("http://127.0.0.1:7001/task/create", data).then(res => {
       let body = res.data;

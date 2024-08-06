@@ -87,7 +87,7 @@ export function Task() {
             <div className="text-xl font-bold font-serif text-gray-900/90">
               Info
             </div>
-            <div className="p-2 text-md shadow-inner space-y-2 rounded-md bg-gray-100/80">
+            <div className="p-2 text-md shadow-inner space-y-2 rounded-md bg-gray-900/60 text-white">
               {
                 taskInfo && 
                 <>
@@ -104,10 +104,10 @@ export function Task() {
               <p className="font-bold font-serif">Attachment</p>
               <button onClick={()=>setUpload(!showUpload)} className="p-1 rounded-full hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
             </div>
-            <div className="p-2 text-md shadow-inner rounded-md bg-gray-100/80 grid grid-cols-4">
+            <div className="p-2 text-md shadow-inner rounded-md bg-gray-900/60 text-white grid grid-cols-4">
               {
                 taskInfo && taskInfo.attachments.map((attachment, index) => 
-                  <button key={index} onClick={()=>downloadAttachment(attachment)} className="p-2 rounded-lg flex flex-col items-center hover:bg-white">
+                  <button key={index} onClick={()=>downloadAttachment(attachment)} className="p-2 rounded-lg flex flex-col items-center hover:bg-gray-400">
                     <img src={fileIcon} className="h-6 w-6" />
                     <p className="max-w-24 truncate">{attachment}</p>
                   </button>
@@ -128,7 +128,7 @@ export function Task() {
             <div className="text-xl font-bold font-serif text-gray-900/90">
               Comment
             </div>
-            <div className="flex-grow p-2 text-md shadow-inner space-y-2 rounded-md bg-gray-100/80">
+            <div className="flex-grow p-2 text-md shadow-inner space-y-2 rounded-md bg-gray-900/60 text-white">
               {
                 taskInfo && taskInfo.comments.map((comment, index) => 
                   <div key={index}>

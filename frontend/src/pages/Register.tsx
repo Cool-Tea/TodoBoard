@@ -39,9 +39,15 @@ export function Register() {
           <img src={reactIcon} className="w-12 h-12" />
           <p className="font-serif text-2xl font-bold">Register</p>
         </div>
-        <form id="register" className="text-lg px-2 space-y-2">
-          New User Name: <input type="text" name="name" required className="px-2 rounded-lg ring-1 ring-gray-900/50" /> <br />
-          Set Password: <input type="text" name="password" required className="px-2 rounded-lg ring-1 ring-gray-900/50"/> <br />
+        <form id="register" className="text-lg px-2 space-y-2 flex flex-col">
+          <div className="flex space-x-2">
+            <p>New User Name:</p> 
+            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+          </div>
+          <div className="flex space-x-2">
+            <p>Set Password:</p> 
+            <input type="password" name="password" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+          </div>
           {
             reason && 
             <div className="text-red-600 text-sm">

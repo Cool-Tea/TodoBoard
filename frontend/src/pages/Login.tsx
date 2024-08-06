@@ -39,9 +39,15 @@ export function Login() {
           <img src={reactIcon} className="w-12 h-12" />
           <p className="font-serif text-2xl font-bold">Login</p>
         </div>
-        <form id="login" className="text-lg px-2 space-y-2">
-          User Name: <input type="text" name="name" required className="px-2 rounded-lg ring-1 ring-gray-900/50" /> <br />
-          Password: <input type="password" name="password" required className="px-2 rounded-lg ring-1 ring-gray-900/50"/> <br />
+        <form id="login" className="text-lg px-2 space-y-2 flex flex-col">
+          <div className="flex space-x-2">
+            <p>User Name:</p> 
+            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+          </div>
+          <div className="flex space-x-2">
+            <p>Password:</p> 
+            <input type="password" name="password" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+          </div>
           {
             reason && 
             <div className="text-red-600 text-sm">
