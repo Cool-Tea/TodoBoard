@@ -11,7 +11,7 @@ import { RepoMode } from "../pages/Repository";
 
 function Button({icon, title, onClick}) {
   return (
-    <button onClick={onClick} className="p-2 rounded-lg flex flex-col items-center hover:bg-gray-200">
+    <button onClick={onClick} className="p-2 rounded-lg flex flex-col items-center transition ease-in-out hover:scale-110 hover:bg-gray-200">
       <img src={icon} className="w-8 h-8" />
       <p className="text-sm">{title}</p>
     </button>

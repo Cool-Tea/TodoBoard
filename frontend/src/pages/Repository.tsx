@@ -77,10 +77,10 @@ export function Repository() {
       projects.map((project, index) => 
         isDel ? 
         <div key={index} className="relative bg-white text-center content-center p-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
-          <button onClick={()=>deleteProject(project)} className="absolute top-0 right-0 rounded-full hover:bg-gray-200"><img src={crossIcon} className="h-4 w-4 rounded-full" /></button>
+          <button onClick={()=>deleteProject(project)} className="absolute top-0 right-0 rounded-full transition ease-in-out hover:scale-[1.5] hover:bg-gray-200/50"><img src={crossIcon} className="h-4 w-4 rounded-full" /></button>
           <p>{project}</p>
         </div> :
-        <button key={index} onClick={()=>navigate(`/${user}/project/${project}`)} className="bg-white hover:bg-gray-200 p-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
+        <button key={index} onClick={()=>navigate(`/${user}/project/${project}`)} className="bg-white transition ease-in-out hover:scale-[1.02] hover:bg-gray-200 p-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
           {project}
         </button>
       )
@@ -190,11 +190,11 @@ export function Repository() {
           <div className="flex">
             <p className="text-xl text-gray-900/90 font-bold font-serif">Project</p>
             <div className="flex-grow flex space-x-2 justify-end">
-              <button onClick={()=>setMode(RepoMode.APROJECT)} className="p-1 rounded-full hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
+              <button onClick={()=>setMode(RepoMode.APROJECT)} className="p-1 rounded-full transition ease-in-out hover:scale-110 hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
               <button onClick={()=>{
                 if (mode == RepoMode.DPROJECT) setMode(RepoMode.NORMAL);
                 else setMode(RepoMode.DPROJECT);
-              }} className="p-1 rounded-full hover:bg-gray-200"><img src={deleteIcon} className="h-6 w-6"/></button>
+              }} className="p-1 rounded-full transition ease-in-out hover:scale-110 hover:bg-gray-200"><img src={deleteIcon} className="h-6 w-6"/></button>
             </div>
           </div>
           <div className="mt-2 p-4 flex-grow grid grid-cols-5 gap-4 shadow-inner rounded-lg bg-gray-900/60">

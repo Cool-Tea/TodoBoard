@@ -56,7 +56,7 @@ export function TaskCard({task, isDel, setRefresh}: Props) {
     <div className="relative bg-white p-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg text-left flex justify-between">
       {
         isDel &&
-        <button onClick={deleteTask} className="absolute top-0 right-0 rounded-full hover:bg-gray-200"><img src={crossIcon} className="h-4 w-4 rounded-full" /></button>
+        <button onClick={deleteTask} className="absolute top-0 right-0 rounded-full transition ease-in-out hover:scale-[1.5] hover:bg-gray-200/50"><img src={crossIcon} className="h-4 w-4 rounded-full" /></button>
       }
       <div>
         <p className="font-semibold text-lg">{task.name}</p>
@@ -64,9 +64,9 @@ export function TaskCard({task, isDel, setRefresh}: Props) {
         <p>End Time: {task.endTime.substring(0, 16).replace('T', ' ')}</p>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <button onClick={()=>moveTask(-1)} className="p-1 rounded-full hover:bg-gray-200"><img src={backIcon} className="h-6 w-6"/></button>
-        <button onClick={()=>moveTask(1)} className="p-1 rounded-full hover:bg-gray-200"><img src={nextIcon} className="h-6 w-6"/></button>
-        <button onClick={()=>navigate(`/${user}/project/${project}/${task.name}`)} className="p-1 rounded-full hover:bg-gray-200"><img src={moreIcon} className="h-6 w-6"/></button>
+        <button onClick={()=>moveTask(-1)} className="p-1 rounded-full transition ease-in-out hover:scale-110 hover:bg-gray-200"><img src={backIcon} className="h-6 w-6"/></button>
+        <button onClick={()=>moveTask(1)} className="p-1 rounded-full transition ease-in-out hover:scale-110 hover:bg-gray-200"><img src={nextIcon} className="h-6 w-6"/></button>
+        <button onClick={()=>navigate(`/${user}/project/${project}/${task.name}`)} className="p-1 rounded-full transition ease-in-out hover:scale-110 hover:bg-gray-200"><img src={moreIcon} className="h-6 w-6"/></button>
       </div>
     </div>
   )

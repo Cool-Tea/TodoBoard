@@ -102,7 +102,7 @@ export function Task() {
           <div className="flex-inital bg-white p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
             <div className="flex flex-row justify-between items-center text-xl text-gray-900/90">
               <p className="font-bold font-serif">Attachment</p>
-              <button onClick={()=>setUpload(!showUpload)} className="p-1 rounded-full hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
+              <button onClick={()=>setUpload(!showUpload)} className="p-1 rounded-full transition ease-in-out hover:scale-110 hover:bg-gray-200"><img src={addIcon} className="h-6 w-6"/></button>
             </div>
             <div className="p-2 text-md shadow-inner rounded-md bg-gray-900/60 text-white grid grid-cols-4">
               {
