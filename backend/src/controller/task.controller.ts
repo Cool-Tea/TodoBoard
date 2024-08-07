@@ -4,7 +4,7 @@ import { ProjectService } from "../service/project.service";
 import { ITask } from "../interface";
 import { Context } from "@midwayjs/koa";
 
-class CreateBody {
+class CreateDTO {
   @Rule(RuleType.string().required())
   project: string;
 
@@ -46,6 +46,12 @@ export class TaskController {
     return ret;
   }
 
+  /**
+   * Get task info
+   * @param project project this task belongs to
+   * @param task name of the task
+   * @returns task info if succeeded
+   */
   @Get('/query')
   async query(@Query('project') project: string, @Query('task') task: string) {
     if (!this.projectService.open(project)) return { success: false, reason: 'Project doesn\'t exists' };
@@ -57,7 +63,7 @@ export class TaskController {
   }
 
   @Post('/create')
-  async create(@Body() body: CreateBody) {
+  async create(@Body() body: CreateDTO) {
     if (!this.projectService.open(body.project)) return { success: false, reason: 'Project doesn\'t exists' };
     if (!this.projectService.addTask(body.name, body.startTime, body.endTime, body.groupId)) {
       this.projectService.close();
@@ -78,6 +84,11 @@ export class TaskController {
     return { success: true, data: null };
   }
 
+  /**
+   * Move task between groups in a circle
+   * @param body must contain project name, task name and distance to move
+   * @returns status of the operation
+   */
   @Patch('/move')
   async move(@Body() body) {
     if (!this.projectService.open(body.project)) return { success: false, reason: 'Project doesn\'t exists' };
@@ -104,6 +115,13 @@ export class TaskController {
     return { success: true, data: null };
   }
 
+  /**
+   * Delete the file attached to the task
+   * @param project name of the project
+   * @param task task name
+   * @param file file name
+   * @returns status of this operation
+   */
   @Del('/unattach')
   async unattach(@Query('project') project: string, @Query('task') task: string, @Query('file') file: string) {
     if (!this.projectService.open(project)) return { success: false, reason: 'Project doesn\'t exists' };
