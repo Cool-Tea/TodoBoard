@@ -1,5 +1,14 @@
 import { Body, Controller, Del, Get, Inject, Post, Query } from "@midwayjs/core";
 import { UserService } from "../service/user.service";
+import { Rule, RuleType } from "@midwayjs/validate";
+
+class RegisterDTO {
+  @Rule(RuleType.string().required())
+  name: string;
+
+  @Rule(RuleType.string().required())
+  password: string;
+}
 
 @Controller('/user')
 export class UserController {
@@ -7,6 +16,11 @@ export class UserController {
   @Inject()
   userService: UserService;
   
+  /**
+   * Get user info by user name
+   * @param user user name
+   * @returns user info
+   */
   @Get('/summary')
   async summary(@Query('user') user: string) {
     let userInfo = this.userService.getUser(user);
@@ -23,7 +37,7 @@ export class UserController {
   }
 
   @Post('/register')
-  async register(@Body() body) {
+  async register(@Body() body: RegisterDTO) {
     if (!this.userService.addUser(body.name, body.password)) return { success: false, reason: 'User name has been used' };
     return { success: true, data: null };
   }
