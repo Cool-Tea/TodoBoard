@@ -3,6 +3,7 @@ import { SideBar, SideBarStatus } from "../components/SideBar";
 import addIcon from "../assets/add.png"
 import fileIcon from "../assets/file.png"
 import crossIcon from "../assets/crossNoCircle.png"
+import downloadIcon from "../assets/download.png"
 import { useParams } from "react-router";
 import * as axios from "axios"
 
@@ -120,11 +121,12 @@ export function Task() {
             <div className="p-2 text-md shadow-inner rounded-md bg-gray-900/60 text-white grid grid-cols-4">
               {
                 taskInfo && taskInfo.attachments.map((attachment, index) => 
-                  <button key={index} onClick={()=>downloadAttachment(attachment)} className="relative group/item p-2 rounded-lg flex flex-col items-center hover:bg-gray-400">
+                  <div key={index} className="relative group/item p-2 rounded-lg flex flex-col items-center hover:bg-gray-400">
                     <button onClick={()=>unattachTask(attachment)} className="absolute invisible group-hover/item:visible top-0 right-0 rounded-full transition ease-in-out hover:scale-[1.5] hover:bg-gray-200/50"><img src={crossIcon} className="h-4 w-4 rounded-full invert" /></button>
+                    <button onClick={()=>downloadAttachment(attachment)} className="absolute invisible group-hover/item:visible bottom-0 right-0 rounded-full transition ease-in-out hover:scale-[1.5] hover:bg-gray-200/50"><img src={downloadIcon} className="h-4 w-4 rounded-full invert" /></button>
                     <img src={fileIcon} className="h-6 w-6 invert" />
                     <p className="max-w-24 truncate">{attachment}</p>
-                  </button>
+                  </div>
                 )
               }
             </div>
