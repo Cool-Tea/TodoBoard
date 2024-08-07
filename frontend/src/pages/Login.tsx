@@ -33,7 +33,7 @@ export function Login() {
   }
 
   return (
-    <div className="relative bg-gradient-to-r from-indigo-300 via-sky-300 to-emerald-300 min-h-screen flex justify-center items-center">
+    <div className="relative bg-[url('src/assets/background.jpg')] bg-cover min-h-screen flex justify-center items-center">
       <div className="bg-white p-4 space-y-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg flex flex-col">
         <div className="flex flex-row items-center space-x-4">
           <img src={reactIcon} className="w-12 h-12" />

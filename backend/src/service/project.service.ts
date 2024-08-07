@@ -90,6 +90,16 @@ export class ProjectService {
     return true;
   }
 
+  public unattachTask(name: string, filename: string) {
+    let task = this.getTask(name);
+    if (!task) return false;
+    let id = task.attachments.indexOf(filename);
+    if (id < 0) return false;
+    task.attachments.splice(id, 1);
+    fs.unlinkSync(`database/projects/${this.project.name}/${filename}`);
+    return true;
+  }
+
   public downloadAttachment(name: string, filename: string) {
     let task = this.getTask(name);
     if (!task || !task.attachments.includes(filename)) return null;

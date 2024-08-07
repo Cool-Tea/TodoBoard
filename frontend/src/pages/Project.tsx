@@ -157,7 +157,7 @@ export function Project() {
   }
 
   return (
-    <div className="relative bg-gradient-to-r from-indigo-300 via-sky-300 to-emerald-300 min-h-screen flex">
+    <div className="relative bg-[url('src/assets/background.jpg')] bg-cover min-h-screen flex">
       <SideBar status={SideBarStatus.PROJECT} projectMode={mode} setProjectMode={setMode} />
       {
         isInBlurMode() && 

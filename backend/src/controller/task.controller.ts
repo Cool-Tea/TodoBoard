@@ -104,6 +104,17 @@ export class TaskController {
     return { success: true, data: null };
   }
 
+  @Del('/unattach')
+  async unattach(@Query('project') project: string, @Query('task') task: string, @Query('file') file: string) {
+    if (!this.projectService.open(project)) return { success: false, reason: 'Project doesn\'t exists' };
+    if (!this.projectService.unattachTask(task, file)) {
+      this.projectService.close();
+      return { success: false, reason: 'Task or attachment does\'t exists' };
+    }
+    this.projectService.close();
+    return { success: true, data: null };
+  }
+
   @Get('/download')
   async download(@Query('project') project: string, @Query('task') task: string, @Query('file') file: string) {
     console.log(`==== Downloading ${file} ====`);

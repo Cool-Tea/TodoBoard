@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SideBar, SideBarStatus } from "../components/SideBar";
 import addIcon from "../assets/add.png"
 import fileIcon from "../assets/file.png"
+import crossIcon from "../assets/crossNoCircle.png"
 import { useParams } from "react-router";
 import * as axios from "axios"
 
@@ -44,6 +45,18 @@ export function Task() {
     }).catch(err => console.log(`Error: ${err}`));
   }
 
+  function unattachTask(file: string) {
+    client.delete("http://127.0.0.1:7001/task/unattach", { params: { project: project, task: task, file: file } }).then(res => {
+      let body = res.data;
+      if (!body.success) {
+        console.log(`Error: ${body.reason}`);
+      }
+      else {
+        getTaskInfo();
+      }
+    }).catch(err => `Error: ${err}`);
+  }
+
   function downloadAttachment(name: string) {
     client.get("http://127.0.0.1:7001/task/download", { params: { project: project, task: task, file: name }, responseType: 'blob' }).then(res => {
       let { data, headers } = res;
@@ -79,7 +92,7 @@ export function Task() {
   }
 
   return (
-    <div className="relative bg-gradient-to-r from-indigo-300 via-sky-300 to-emerald-300 min-h-screen flex">
+    <div className="relative bg-[url('src/assets/background.jpg')] bg-cover min-h-screen flex">
       <SideBar status={SideBarStatus.TASK} />
       <div className="ml-24 px-8 pt-4 pb-8 flex-grow flex space-x-4">
         <div className="w-1/3 flex flex-col space-y-4">
@@ -107,8 +120,9 @@ export function Task() {
             <div className="p-2 text-md shadow-inner rounded-md bg-gray-900/60 text-white grid grid-cols-4">
               {
                 taskInfo && taskInfo.attachments.map((attachment, index) => 
-                  <button key={index} onClick={()=>downloadAttachment(attachment)} className="p-2 rounded-lg flex flex-col items-center hover:bg-gray-400">
-                    <img src={fileIcon} className="h-6 w-6" />
+                  <button key={index} onClick={()=>downloadAttachment(attachment)} className="relative group/item p-2 rounded-lg flex flex-col items-center hover:bg-gray-400">
+                    <button onClick={()=>unattachTask(attachment)} className="absolute invisible group-hover/item:visible top-0 right-0 rounded-full transition ease-in-out hover:scale-[1.5] hover:bg-gray-200/50"><img src={crossIcon} className="h-4 w-4 rounded-full invert" /></button>
+                    <img src={fileIcon} className="h-6 w-6 invert" />
                     <p className="max-w-24 truncate">{attachment}</p>
                   </button>
                 )

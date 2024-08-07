@@ -62,7 +62,7 @@ export function Repository() {
             <div className="p-1 rounded-full bg-gray-200">
               <img src={tickIcon} className="h-6 w-6"/>
             </div> :
-            <button onClick={()=>addProject(proj)} className="p-1 rounded-full hover:bg-gray-200">
+            <button onClick={()=>addProject(proj)} className="p-1 rounded-full transition ease-in-out hover:scale-110 hover:bg-gray-200">
               <img src={addIcon} className="h-6 w-6"/>
             </button>
           }
@@ -144,7 +144,7 @@ export function Repository() {
   }
 
   return (
-    <div className="relative bg-gradient-to-r from-indigo-300 via-sky-300 to-emerald-300 min-h-screen flex">
+    <div className="relative bg-[url('src/assets/background.jpg')] bg-cover min-h-screen flex">
       <SideBar status={SideBarStatus.REPO} repoMode={mode} setRepoMode={setMode} />
       {
         mode == RepoMode.APROJECT &&
