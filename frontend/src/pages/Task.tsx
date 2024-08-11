@@ -133,8 +133,8 @@ export function Task() {
             {
               showUpload &&
               <div className="flex justify-between">
-                <input type="file" id="file" />
-                <button onClick={attachTask} className="text-white px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-800">Add</button>
+                <input type="file" id="file" className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" />
+                <button onClick={attachTask} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-full bg-sky-50 hover:bg-sky-100">Add</button>
               </div>
             }
           </div>
@@ -155,7 +155,7 @@ export function Task() {
             </div>
             <div className="flex flex-row space-x-2 items-center">
               <input type="text" id="comment" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
-              <button onClick={commentTask} className="px-2 py-1 rounded-lg bg-sky-600 text-white hover:bg-sky-800">Send</button>
+              <button onClick={commentTask} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-full bg-sky-50 hover:bg-sky-100">Send</button>
             </div>
           </div>
         </div>

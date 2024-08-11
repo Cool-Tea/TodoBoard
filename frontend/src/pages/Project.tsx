@@ -56,8 +56,8 @@ export function Project() {
             </div>
           }
           <div className="flex justify-between">
-            <button onClick={()=>{setReason(null);setMode(ProjectMode.NORMAL);}} className="text-sky-600 hover:text-sky-800">Back</button>
-            <button onClick={addGroup} className="text-white px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-800">Add</button>
+            <button onClick={()=>{setReason(null);setMode(ProjectMode.NORMAL);}} className="text-sm font-semibold text-sky-600 hover:text-sky-800">Back</button>
+            <button onClick={addGroup} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-full bg-sky-50 hover:bg-sky-100">Add</button>
           </div>
         </div>
       </>
@@ -91,8 +91,8 @@ export function Project() {
             </div>
           }
           <div className="flex justify-between">
-            <button onClick={()=>{setReason(null);setMode(ProjectMode.NORMAL);}} className="text-sky-600 hover:text-sky-800">Back</button>
-            <button onClick={addTask} className="text-white px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-800">Add</button>
+            <button onClick={()=>{setReason(null);setMode(ProjectMode.NORMAL);}} className="text-sm font-semibold text-sky-600 hover:text-sky-800">Back</button>
+            <button onClick={addTask} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-full bg-sky-50 hover:bg-sky-100">Add</button>
           </div>
         </form>
       </>

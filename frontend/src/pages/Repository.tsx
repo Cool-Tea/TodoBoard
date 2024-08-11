@@ -59,7 +59,7 @@ export function Repository() {
           <p>{proj}</p>
           {
             projects.includes(proj) ?
-            <div className="p-1 rounded-full bg-gray-200">
+            <div className="p-1 rounded-full bg-sky-200">
               <img src={tickIcon} className="h-6 w-6"/>
             </div> :
             <button onClick={()=>addProject(proj)} className="p-1 rounded-full transition ease-in-out hover:scale-110 hover:bg-gray-200">
@@ -166,8 +166,8 @@ export function Repository() {
                 </div>
               }
               <div className="flex justify-between">
-                <button onClick={()=>{setMode(RepoMode.NORMAL)}} className="text-sky-600 hover:text-sky-800">Back</button>
-                <button onClick={createProject} className="text-white px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-800">Create</button>
+                <button onClick={()=>{setMode(RepoMode.NORMAL)}} className="text-sm font-semibold text-sky-600 hover:text-sky-800">Back</button>
+                <button onClick={createProject} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-full bg-sky-50 hover:bg-sky-100">Create</button>
               </div>
             </div>
           </div>

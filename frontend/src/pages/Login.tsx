@@ -55,8 +55,8 @@ export function Login() {
             </div>
           }
           <div className="flex justify-between">
-            <button type="button" onClick={()=>navigate('/register')} className="text-sky-600 hover:text-sky-800">Register</button>
-            <button type="button" onClick={login} className="text-white px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-800">Login</button>
+            <button type="button" onClick={()=>navigate('/register')} className="text-sm font-semibold text-sky-600 hover:text-sky-800">Register</button>
+            <button type="button" onClick={login} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-full bg-sky-50 hover:bg-sky-100">Login</button>
           </div>
         </form>
       </div>

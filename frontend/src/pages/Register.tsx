@@ -55,8 +55,8 @@ export function Register() {
             </div>
           }
           <div className="flex justify-between">
-            <button type="button" onClick={()=>navigate('/login')} className="text-sky-600 hover:text-sky-800">Back</button>
-            <button type="button" onClick={register} className="text-white px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-800">Register</button>
+            <button type="button" onClick={()=>navigate('/login')} className="text-sm font-semibold text-sky-600 hover:text-sky-800">Back</button>
+            <button type="button" onClick={register} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-full bg-sky-50 hover:bg-sky-100">Register</button>
           </div>
         </form>
       </div>
