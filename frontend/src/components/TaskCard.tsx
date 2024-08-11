@@ -3,6 +3,7 @@ import backIcon from "../assets/back.png"
 import nextIcon from "../assets/next.png"
 import moreIcon from "../assets/more.png"
 import crossIcon from "../assets/cross.png"
+import warningIcon from "../assets/warning.png"
 import { useNavigate, useParams } from "react-router";
 import * as axios from "axios"
 
@@ -22,6 +23,7 @@ export function TaskCard({task, isDel, setRefresh}: Props) {
   const navigate = useNavigate();
   const { user, project } = useParams();
   const client = axios.default;
+  const isOverdue = new Date(task.endTime) < new Date();
 
   function deleteTask() {
     client.delete("http://127.0.0.1:7001/task/delete", { params: { project: project, task: task.name } }).then(res => {
@@ -59,6 +61,13 @@ export function TaskCard({task, isDel, setRefresh}: Props) {
         <button onClick={deleteTask} className="absolute top-0 right-0 rounded-full transition ease-in-out hover:scale-[1.5] hover:bg-gray-200/50"><img src={crossIcon} className="h-4 w-4 rounded-full" /></button>
       }
       <div>
+        {
+          isOverdue &&
+          <div className="absolute top-0 left-1 flex items-center space-x-1">
+            <img src={warningIcon} alt="Overdue" className="h-4 w-4" />
+            <p className="text-sm text-orange-600">Overdue</p>
+          </div>
+        }
         <p className="font-semibold text-lg">{task.name}</p>
         <p>Start Time: {task.startTime.substring(0, 16).replace('T', ' ')}</p>
         <p>End Time: {task.endTime.substring(0, 16).replace('T', ' ')}</p>

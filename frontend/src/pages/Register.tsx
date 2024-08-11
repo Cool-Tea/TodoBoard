@@ -42,11 +42,11 @@ export function Register() {
         <form id="register" className="text-lg px-2 space-y-2 flex flex-col">
           <div className="flex space-x-2">
             <p>New User Name:</p> 
-            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
           </div>
           <div className="flex space-x-2">
             <p>Set Password:</p> 
-            <input type="password" name="password" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+            <input type="password" name="password" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
           </div>
           {
             reason && 

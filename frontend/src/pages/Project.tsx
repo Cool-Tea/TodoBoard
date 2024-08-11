@@ -47,7 +47,7 @@ export function Project() {
         <div className="text-lg px-2 space-y-2">
           <div className="flex space-x-2">
             <p>Group Name:</p>
-            <input type="text" id="group" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+            <input type="text" id="group" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
           </div>
           {
             reason && 
@@ -74,15 +74,15 @@ export function Project() {
         <form id="task" className="text-lg px-2 space-y-2" >
           <div className="flex space-x-2">
             <p>Task Name:</p>
-            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
           </div>
           <div className="flex space-x-2">
             <p>Start Time:</p>
-            <input type="datetime-local" required name="startTime" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+            <input type="datetime-local" required name="startTime" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
           </div>
           <div className="flex space-x-2">
             <p>End Time:</p>
-            <input type="datetime-local" required name="endTime" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+            <input type="datetime-local" required name="endTime" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
           </div>
           {
             reason && 

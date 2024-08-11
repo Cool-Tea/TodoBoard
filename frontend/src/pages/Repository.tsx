@@ -157,7 +157,7 @@ export function Repository() {
             <div className="text-lg px-2 space-y-2">
               <div className="flex space-x-2">
                 <p>Project Name:</p>
-                <input type="text" id="project" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50" />
+                <input type="text" id="project" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
               </div>
               {
                 reason && 
