@@ -45,3 +45,47 @@ To stop it, run:
 ```sh
 pm2 stop frontend
 ```
+
+## Function
+
+### Basic
+
+- Multiple User (Login && Register)
+- Project Creation
+- Task Creation
+- Task Viewer
+- Comment
+- Dashboard
+- Attachment Addition && Download
+
+### Extra
+
+#### Add Project created by others
+
+After clicking `Add Project`, you can see all other projects created by others, which you can select.
+
+#### Project Deletion
+
+Simple function as the title
+
+#### Group and Task Deletion
+
+Simple function as the title
+
+#### Overdue Reminder
+
+When a task is overdue, a warning sign will be shown on top-left side of that task
+
+#### Move task around groups
+
+You can click arrow button on each task to move that task around
+
+#### Side Bar && Navigator
+
+Buttons on the side bar will change in different pages
+
+You can easily navigate to different pages through those buttons
+
+#### Attachment Deletion
+
+Simple function as the title
