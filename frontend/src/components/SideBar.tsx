@@ -13,7 +13,7 @@ function Button({icon, title, onClick}) {
   return (
     <button onClick={onClick} className="p-2 rounded-xl flex flex-col items-center transition ease-in-out hover:scale-110 hover:bg-gray-200">
       <img src={icon} className="w-8 h-8" />
-      <p className="text-sm font-semibold">{title}</p>
+      <p className="text-sm text-slate-700 font-semibold">{title}</p>
     </button>
   )
 }

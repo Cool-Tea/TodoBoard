@@ -156,8 +156,8 @@ export function Repository() {
             </div>
             <div className="text-lg px-2 space-y-2">
               <div className="flex space-x-2">
-                <p>Project Name:</p>
-                <input type="text" id="project" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
+                <p className="text-slate-700">Project Name:</p>
+                <input type="text" id="project" required className="flex-grow placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md px-2 py-1 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="New project name" />
               </div>
               {
                 reason && 

@@ -154,8 +154,8 @@ export function Task() {
               }
             </div>
             <div className="flex flex-row space-x-2 items-center">
-              <input type="text" id="comment" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
-              <button onClick={commentTask} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-full bg-sky-50 hover:bg-sky-100">Send</button>
+              <input type="text" id="comment" className="flex-grow placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md px-2 py-1 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" />
+              <button onClick={commentTask} className="text-sky-700 px-4 py-2 text-sm border-0 font-semibold rounded-xl bg-sky-50 hover:bg-sky-100">Send</button>
             </div>
           </div>
         </div>

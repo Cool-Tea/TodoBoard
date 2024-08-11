@@ -46,8 +46,8 @@ export function Project() {
         </div>
         <div className="text-lg px-2 space-y-2">
           <div className="flex space-x-2">
-            <p>Group Name:</p>
-            <input type="text" id="group" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
+            <p className="text-slate-700">Group Name:</p>
+            <input type="text" id="group" required className="flex-grow placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md px-2 py-1 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="New group name" />
           </div>
           {
             reason && 
@@ -73,16 +73,16 @@ export function Project() {
         </div>
         <form id="task" className="text-lg px-2 space-y-2" >
           <div className="flex space-x-2">
-            <p>Task Name:</p>
-            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
+            <p className="text-slate-700">Task Name:</p>
+            <input type="text" name="name" required className="flex-grow placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md px-2 py-1 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="New task name" />
           </div>
           <div className="flex space-x-2">
-            <p>Start Time:</p>
-            <input type="datetime-local" required name="startTime" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
+            <p className="text-slate-700">Start Time:</p>
+            <input type="datetime-local" required name="startTime" className="flex-grow block bg-white border border-slate-300 rounded-md px-2 py-1 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" />
           </div>
           <div className="flex space-x-2">
-            <p>End Time:</p>
-            <input type="datetime-local" required name="endTime" className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
+            <p className="text-slate-700">End Time:</p>
+            <input type="datetime-local" required name="endTime" className="flex-grow block bg-white border border-slate-300 rounded-md px-2 py-1 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" />
           </div>
           {
             reason && 
@@ -162,7 +162,7 @@ export function Project() {
       {
         isInBlurMode() && 
         <div className="absolute inset-0 ml-24 z-40 backdrop-blur-lg backdrop-brightness-50 flex items-center justify-center">
-          <div className="bg-white p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
+          <div className="bg-white w-1/3 p-4 space-y-2 rounded-lg ring-1 ring-gray-900/5 shadow-lg">
             {getInputItems()}
           </div>
         </div>

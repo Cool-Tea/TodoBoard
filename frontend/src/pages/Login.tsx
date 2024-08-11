@@ -34,19 +34,19 @@ export function Login() {
 
   return (
     <div className="relative bg-[url('/background.jpg')] bg-cover min-h-screen flex justify-center items-center">
-      <div className="bg-white p-4 space-y-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg flex flex-col">
+      <div className="bg-white w-1/3 p-4 space-y-4 rounded-lg ring-1 ring-gray-900/5 shadow-lg flex flex-col">
         <div className="flex flex-row items-center space-x-4">
           <img src={reactIcon} className="w-12 h-12" />
           <p className="font-serif text-2xl font-bold">Login</p>
         </div>
         <form id="login" className="text-lg px-2 space-y-2 flex flex-col">
           <div className="flex space-x-2">
-            <p>User Name:</p> 
-            <input type="text" name="name" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
+            <p className="text-slate-700">User Name:</p> 
+            <input type="text" name="name" required className="flex-grow placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md px-2 py-1 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Enter your user name" />
           </div>
           <div className="flex space-x-2">
-            <p>Password:</p> 
-            <input type="password" name="password" required className="flex-grow px-2 rounded-lg ring-1 ring-gray-900/50 focus:ring-sky-500" />
+            <p className="text-slate-700">Password:</p> 
+            <input type="password" name="password" required className="flex-grow placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md px-2 py-1 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Your password" />
           </div>
           {
             reason && 
