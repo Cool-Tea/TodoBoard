@@ -803,8 +803,8 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-\[url\(\'src\/assets\/background\.jpg\'\)\] {
-  background-image: url('src/assets/background.jpg');
+.bg-\[url\(\'\/background\.jpg\'\)\] {
+  background-image: url('/background.jpg');
 }
 
 .bg-cover {

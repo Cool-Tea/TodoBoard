@@ -93,7 +93,7 @@ export function Task() {
   }
 
   return (
-    <div className="relative bg-[url('src/assets/background.jpg')] bg-cover min-h-screen flex">
+    <div className="relative bg-[url('/background.jpg')] bg-cover min-h-screen flex">
       <SideBar status={SideBarStatus.TASK} />
       <div className="ml-24 px-8 pt-4 pb-8 flex-grow flex space-x-4">
         <div className="w-1/3 flex flex-col space-y-4">

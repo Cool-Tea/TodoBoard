@@ -157,7 +157,7 @@ export function Project() {
   }
 
   return (
-    <div className="relative bg-[url('src/assets/background.jpg')] bg-cover min-h-screen flex">
+    <div className="relative bg-[url('/background.jpg')] bg-cover min-h-screen flex">
       <SideBar status={SideBarStatus.PROJECT} projectMode={mode} setProjectMode={setMode} />
       {
         isInBlurMode() && 

@@ -6,13 +6,13 @@
   "dependencies": {
     "@midwayjs/bootstrap": "^3.16.6",
     "@midwayjs/core": "^3.16.2",
-    "@midwayjs/cross-domain": "^3.16.6",
-    "@midwayjs/i18n": "^3.16.6",
-    "@midwayjs/info": "^3.16.6",
-    "@midwayjs/koa": "^3.16.6",
+    "@midwayjs/cross-domain": "^3.16.8",
+    "@midwayjs/i18n": "^3.16.8",
+    "@midwayjs/info": "^3.16.8",
+    "@midwayjs/koa": "^3.16.8",
     "@midwayjs/logger": "^3.1.0",
-    "@midwayjs/upload": "^3.16.7",
-    "@midwayjs/validate": "^3.16.6"
+    "@midwayjs/upload": "^3.16.8",
+    "@midwayjs/validate": "^3.16.8"
   },
   "devDependencies": {
     "@midwayjs/mock": "^3.16.5",
