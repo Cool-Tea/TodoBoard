@@ -83,7 +83,7 @@ export function SideBar({status, projectMode, setProjectMode, repoMode, setRepoM
   return (
     <div className="absolute inset-0 z-50 bg-white py-4 px-2 w-24 text-center items-center ring-1 ring-gray-900/5 shadow-xl flex flex-col space-y-8">
       <img src={reactIcon} className="w-12 h-12 motion-safe:animate-[spin_5s_linear_infinite]" />
-      <div className="p-2 ring-1 ring-gray-900/5 shadow-lg text-center text-white rounded-md bg-gray-900/60">
+      <div className="p-2 ring-1 ring-gray-900/5 shadow-lg text-center text-white italic rounded-md bg-gray-900/60 -skew-x-6">
         {user}
       </div>
       <div className="flex flex-col space-y-4">
