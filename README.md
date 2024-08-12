@@ -6,12 +6,18 @@ A light weight swift todo board.
 
 Prerequisite: node.js environment
 
-Use pm2 deploy this project
+Use pm2 to deploy backend and anything you like to deploy frontend (i.e. `serve`)
 
 ### Install pm2
 
 ```sh
 npm install -g pm2
+```
+
+### Install serve
+
+```sh
+npm install -g serve
 ```
 
 ### Deploy Backend
@@ -32,10 +38,10 @@ pm2 stop backend
 
 ### Deploy Frontend
 
-Enter `/frontend` and run the following command:
+Enter `/frontend` and run the following command (i.e. `serve`):
 
 ```sh
-pm2 start --name frontend npm -- run preview
+serve -s dist -p 8080
 ```
 
 Then you can visit `localhost:8080` to use it
