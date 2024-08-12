@@ -39,6 +39,11 @@ describe('test/controller/project.test.ts', () => {
     expect(result.body.success).toBeFalsy();
   });
 
+  it('Create project success', async () => {
+    const result = await createHttpRequest(app).post('/project/create').send({user: 'admin', name: 'Test'});
+    expect(result.body.success).toBeTruthy();
+  });
+
   it('Delete project failure 1', async () => {
     const result = await createHttpRequest(app).delete('/project/delete');
     expect(result.body.success).toBeFalsy();
@@ -47,6 +52,11 @@ describe('test/controller/project.test.ts', () => {
   it('Delete project failure 2', async () => {
     const result = await createHttpRequest(app).delete('/project/delete').query({user: 'admin', project: 'null'});
     expect(result.body.success).toBeFalsy();
+  });
+
+  it('Delete project success', async () => {
+    const result = await createHttpRequest(app).delete('/project/delete').query({user: 'admin', project: 'Test'});
+    expect(result.body.success).toBeTruthy();
   });
 
   it('Create group failure 1', async () => {
@@ -64,6 +74,11 @@ describe('test/controller/project.test.ts', () => {
     expect(result.body.success).toBeFalsy();
   });
 
+  it('Create group success', async () => {
+    const result = await createHttpRequest(app).post('/project/group/create').send({project: 'Example', name: 'Test'});
+    expect(result.body.success).toBeTruthy();
+  });
+
   it('Delete group failure 1', async () => {
     const result = await createHttpRequest(app).delete('/project/group/delete');
     expect(result.body.success).toBeFalsy();
@@ -77,5 +92,10 @@ describe('test/controller/project.test.ts', () => {
   it('Delete group failure 3', async () => {
     const result = await createHttpRequest(app).delete('/project/group/delete').query({project: 'Example', group: 'null'});
     expect(result.body.success).toBeFalsy();
+  });
+
+  it('Delete group success', async () => {
+    const result = await createHttpRequest(app).delete('/project/group/delete').query({project: 'Example', group: 'Test'});
+    expect(result.body.success).toBeTruthy();
   });
 });

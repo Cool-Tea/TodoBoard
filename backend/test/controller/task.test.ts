@@ -38,6 +38,11 @@ describe('test/controller/user.test.ts', () => {
     expect(result.body.success).toBeFalsy();
   });
 
+  it('Create task success', async () => {
+    const result = await createHttpRequest(app).post('/task/create').send({project: 'Example', task: 'Test'});
+    expect(result.body.success).toBeTruthy();
+  });
+
   it('Delete task failure 1', async () => {
     const result = await createHttpRequest(app).delete('/task/delete');
     expect(result.body.success).toBeFalsy();
@@ -51,5 +56,10 @@ describe('test/controller/user.test.ts', () => {
   it('Delete task failure 3', async () => {
     const result = await createHttpRequest(app).delete('/task/delete').query({project: 'Example', task: 'null'});
     expect(result.body.success).toBeFalsy();
+  });
+
+  it('Delete task success', async () => {
+    const result = await createHttpRequest(app).delete('/task/delete').query({project: 'Example', task: 'Test'});
+    expect(result.body.success).toBeTruthy();
   });
 })

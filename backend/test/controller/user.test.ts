@@ -48,6 +48,11 @@ describe('test/controller/user.test.ts', () => {
     expect(result.body.success).toBe(false);
   });
 
+  it('Register success', async () => {
+    const result = await createHttpRequest(app).post('/user/register').send({name: 'Test', password: '1'});
+    expect(result.body.success).toBe(true);
+  });
+
   it('Project addition failure 1', async () => {
     const result = await createHttpRequest(app).post('/user/project/add');
     expect(result.body.success).toBe(false);
@@ -63,6 +68,11 @@ describe('test/controller/user.test.ts', () => {
     expect(result.body.success).toBe(false);
   });
 
+  it('Project addition success', async () => {
+    const result = await createHttpRequest(app).post('/user/project/add').send({user: 'admin', project: 'Test'});
+    expect(result.body.success).toBe(true);
+  });
+
   it('Project deletion failure 1', async () => {
     const result = await createHttpRequest(app).delete('/user/project/delete');
     expect(result.body.success).toBe(false);
@@ -76,5 +86,10 @@ describe('test/controller/user.test.ts', () => {
   it('Project deletion failure 3', async () => {
     const result = await createHttpRequest(app).delete('/user/project/delete').query({user: 'admin', project: 'null'});
     expect(result.body.success).toBe(false);
+  });
+
+  it('Project deletion success', async () => {
+    const result = await createHttpRequest(app).delete('/user/project/delete').query({user: 'admin', project: 'Test'});
+    expect(result.body.success).toBe(true);
   });
 });
