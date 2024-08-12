@@ -69,6 +69,7 @@ describe('test/controller/user.test.ts', () => {
   });
 
   it('Project addition success', async () => {
+    await createHttpRequest(app).post('/project/create').send({user: 'admin', name: 'Test'});
     const result = await createHttpRequest(app).post('/user/project/add').send({user: 'admin', project: 'Test'});
     expect(result.body.success).toBe(true);
   });
@@ -90,6 +91,7 @@ describe('test/controller/user.test.ts', () => {
 
   it('Project deletion success', async () => {
     const result = await createHttpRequest(app).delete('/user/project/delete').query({user: 'admin', project: 'Test'});
+    await createHttpRequest(app).delete('/project/delete').query({user: 'admin', project: 'Test'});
     expect(result.body.success).toBe(true);
   });
 });
