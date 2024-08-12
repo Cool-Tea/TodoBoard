@@ -59,7 +59,7 @@ describe('test/controller/user.test.ts', () => {
   });
 
   it('Project addition failure 3', async () => {
-    const result = await createHttpRequest(app).post('/user/project/add').send({user: 'admin', project: 'test'});
+    const result = await createHttpRequest(app).post('/user/project/add').send({user: 'admin', project: 'Example'});
     expect(result.body.success).toBe(false);
   });
 

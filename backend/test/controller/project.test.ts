@@ -18,7 +18,7 @@ describe('test/controller/project.test.ts', () => {
   });
 
   it('Summary project success', async () => {
-    const result = await createHttpRequest(app).get('/project/summary').query({project: 'test'});
+    const result = await createHttpRequest(app).get('/project/summary').query({project: 'Example'});
     expect(result.body.success).toBeTruthy();
     expect(result.body.data).toBeTruthy();
   });
@@ -35,7 +35,7 @@ describe('test/controller/project.test.ts', () => {
   });
 
   it('Create project failure 2', async () => {
-    const result = await createHttpRequest(app).post('/project/create').send({user: 'admin', name: 'test'});
+    const result = await createHttpRequest(app).post('/project/create').send({user: 'admin', name: 'Example'});
     expect(result.body.success).toBeFalsy();
   });
 
@@ -60,7 +60,7 @@ describe('test/controller/project.test.ts', () => {
   });
 
   it('Create group failure 3', async () => {
-    const result = await createHttpRequest(app).post('/project/group/create').send({project: 'test', name: 'To do'});
+    const result = await createHttpRequest(app).post('/project/group/create').send({project: 'Example', name: 'To do'});
     expect(result.body.success).toBeFalsy();
   });
 
@@ -75,7 +75,7 @@ describe('test/controller/project.test.ts', () => {
   });
 
   it('Delete group failure 3', async () => {
-    const result = await createHttpRequest(app).delete('/project/group/delete').query({project: 'test', group: 'null'});
+    const result = await createHttpRequest(app).delete('/project/group/delete').query({project: 'Example', group: 'null'});
     expect(result.body.success).toBeFalsy();
   });
 });

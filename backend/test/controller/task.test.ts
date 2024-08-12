@@ -18,7 +18,7 @@ describe('test/controller/user.test.ts', () => {
   });
 
   it('Query task success', async () => {
-    const result = await createHttpRequest(app).get('/task/query').query({project: 'test', task: '1'});
+    const result = await createHttpRequest(app).get('/task/query').query({project: 'Example', task: 'Learn the function of each button'});
     expect(result.body.success).toBeTruthy();
     expect(result.body.data).toBeTruthy();
   });
@@ -34,7 +34,7 @@ describe('test/controller/user.test.ts', () => {
   });
 
   it('Create task failure 3', async () => {
-    const result = await createHttpRequest(app).post('/task/create').send({project: 'test', task: '1'});
+    const result = await createHttpRequest(app).post('/task/create').send({project: 'Example', task: 'Learn the function of each button'});
     expect(result.body.success).toBeFalsy();
   });
 
@@ -49,7 +49,7 @@ describe('test/controller/user.test.ts', () => {
   });
 
   it('Delete task failure 3', async () => {
-    const result = await createHttpRequest(app).delete('/task/delete').query({project: 'test', task: 'null'});
+    const result = await createHttpRequest(app).delete('/task/delete').query({project: 'Example', task: 'null'});
     expect(result.body.success).toBeFalsy();
   });
 })
