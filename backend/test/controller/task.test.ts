@@ -29,17 +29,17 @@ describe('test/controller/user.test.ts', () => {
   });
 
   it('Create task failure 2', async () => {
-    const result = await createHttpRequest(app).post('/task/create').send({project: 'null', task: 'null'});
+    const result = await createHttpRequest(app).post('/task/create').send({project: 'null', name: 'null', startTime: '2024-08-13T12:00:00.000Z', endTime: '2024-09-01T12:00:00.000Z', groupId: 0});
     expect(result.body.success).toBeFalsy();
   });
 
   it('Create task failure 3', async () => {
-    const result = await createHttpRequest(app).post('/task/create').send({project: 'Example', task: 'Learn the function of each button'});
+    const result = await createHttpRequest(app).post('/task/create').send({project: 'Example', name: 'Learn the function of each button', startTime: '2024-08-13T12:00:00.000Z', endTime: '2024-09-01T12:00:00.000Z', groupId: 0});
     expect(result.body.success).toBeFalsy();
   });
 
   it('Create task success', async () => {
-    const result = await createHttpRequest(app).post('/task/create').send({project: 'Example', task: 'Test'});
+    const result = await createHttpRequest(app).post('/task/create').send({project: 'Example', name: 'Test', startTime: '2024-08-13T12:00:00.000Z', endTime: '2024-09-01T12:00:00.000Z', groupId: 0});
     expect(result.body.success).toBeTruthy();
   });
 
