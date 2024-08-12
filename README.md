@@ -46,12 +46,6 @@ serve -s dist -p 8080
 
 Then you can visit `localhost:8080` to use it
 
-To stop it, run:
-
-```sh
-pm2 stop frontend
-```
-
 ## Function
 
 ### Basic
